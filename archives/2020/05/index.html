@@ -20,20 +20,16 @@
     var CONFIG = {"hostname":"wglee87.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="pandas 공데이터 한글깨짐현상 문제해결 공공데이터 포털에서 다운로드 받은 csv파일을 pandas에서 로딩할 때 한글깨짐 현상을 해결하는 방법에 대하여 알아보겠습니다. 한글 깨짐 현상을 해결하기 전에 영어는 아무 문제가 없지만, 한글 파일을 읽어올 때는 종종 문제가 발생하게 됩니다.   Encoding. 기본적인 이해   문자형 데이터는 컴퓨터가 인">
-<meta property="og:type" content="article">
-<meta property="og:title" content="공공데이터csv_한글깨짐현상_문제해결.md">
-<meta property="og:url" content="http://wglee87.github.io/2020/04/29/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0csv-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90%ED%98%84%EC%83%81-%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-md/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Geony&#39;s 데이터 세상">
+<meta property="og:url" content="http://wglee87.github.io/archives/2020/05/index.html">
 <meta property="og:site_name" content="Geony&#39;s 데이터 세상">
-<meta property="og:description" content="pandas 공데이터 한글깨짐현상 문제해결 공공데이터 포털에서 다운로드 받은 csv파일을 pandas에서 로딩할 때 한글깨짐 현상을 해결하는 방법에 대하여 알아보겠습니다. 한글 깨짐 현상을 해결하기 전에 영어는 아무 문제가 없지만, 한글 파일을 읽어올 때는 종종 문제가 발생하게 됩니다.   Encoding. 기본적인 이해   문자형 데이터는 컴퓨터가 인">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-29T08:20:04.000Z">
-<meta property="article:modified_time" content="2020-04-29T08:26:46.937Z">
 <meta property="article:author" content="WGLee87">
 <meta property="article:tag" content="data_analysis">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://wglee87.github.io/2020/04/29/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0csv-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90%ED%98%84%EC%83%81-%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-md/">
+<link rel="canonical" href="http://wglee87.github.io/archives/2020/05/">
 
 
 <script id="page-configurations">
@@ -41,12 +37,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>공공데이터csv_한글깨짐현상_문제해결.md | Geony's 데이터 세상</title>
+  <title>Archive | Geony's 데이터 세상</title>
   
 
 
@@ -144,135 +140,50 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content archive">
             
 
-    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/04/29/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0csv-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90%ED%98%84%EC%83%81-%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-md/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="WGLee87">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Geony's 데이터 세상">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          공공데이터csv_한글깨짐현상_문제해결.md
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-04-29 17:20:04 / Modified: 17:26:46" itemprop="dateCreated datePublished" datetime="2020-04-29T17:20:04+09:00">2020-04-29</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <span class="collection-header">Um..! 8 posts in total. Keep on posting.</span>
+      </div>
 
       
-        <h2 id="pandas-공데이터-한글깨짐현상-문제해결"><a href="#pandas-공데이터-한글깨짐현상-문제해결" class="headerlink" title="pandas 공데이터 한글깨짐현상 문제해결"></a>pandas 공데이터 한글깨짐현상 문제해결</h2><ul>
-<li>공공데이터 포털에서 다운로드 받은 csv파일을 pandas에서 로딩할 때 한글깨짐 현상을 해결하는 방법에 대하여 알아보겠습니다.</li>
-<li>한글 깨짐 현상을 해결하기 전에 영어는 아무 문제가 없지만, 한글 파일을 읽어올 때는 종종 문제가 발생하게 됩니다.</li>
-</ul>
-<ol>
-<li>Encoding. 기본적인 이해</li>
-</ol>
-<ul>
-<li><p>문자형 데이터는 컴퓨터가 인식을 하지 못하기 때문에 우리는 이것을 컴퓨터가 이해할 수 있도록 Bit 형태로 변형해야합니다.</p>
-</li>
-<li><p>1Byte = 8Bit</p>
-</li>
-<li><p>Ascii 계열의 문자열은 0~127까지 표현되기 때문에 1Byte 안에 충분히 표현될 수 있습니다. 하지만, 한글은 Ascii 안에 표현이 불가하기 때문에 표현하기 위해서는 Byte가 충분히 더 필요합니다.</p>
-</li>
-<li><p>인코딩은 한글과 같은 Ascii 범위를 벗어난 문자를 표현하기 위한 변형 작업이라고 이해하시면 쉽습니다. 하지만, 문제는 이러한 인코딩 방식이 여러가지 입니다.</p>
-</li>
-</ul>
-<ol start="2">
-<li>공공데이터(csv) 파일의 encoding</li>
-</ol>
-<ul>
-<li><p>공공데이터파일은 utf8 방식이면 좋겠으나, 아쉽게도(?) cp949 혹은 euc-kr 형식으로 인코딩이 되어 있습니다.</p>
-</li>
-<li><p>이러한 이유때문에 pandas에서 파일을 불러오면,,</p>
-<ul>
-<li>‘utf8 codec can’t decode byte 0xb1 in position 0: invalid start byte’</li>
-</ul>
-</li>
-</ul>
-<p>라는 에러메세지가 발생하게 됩니다.</p>
-<ul>
-<li>해결책1</li>
-</ul>
-<ul>
-<li>pandas에서 파일을 불러올 시, ‘engine=python’ 이라는 코드를 같이 작성하기</li>
-<li>df = pd.read_csv(‘test.csv’, engine=’python’)</li>
-<li>불러오게 되면 작동은 하나 한글이 ???형식으로 나타나게 되기도 합니다.</li>
-</ul>
-<ul>
-<li>해결책2</li>
-</ul>
-<ul>
-<li>pandas에서 파일을 불러올 시, ‘encoding=utf8’ 이라는 코드를 같이 작성하기</li>
-<li>df = pd.read_csv(‘test.csv’, encoding=’utf8’)</li>
-<li>그러나 공공데이터의 경우 해결되지 않는 경우가 많습니다.</li>
-</ul>
-<ul>
-<li>해결책3</li>
-</ul>
-<ul>
-<li>Excel에서 파일의 인코딩 옵션 변경하기</li>
-<li>파일을 불러온 후, 다름이름 저장하기를 통해 고급옵션의 파일인코딩 형식을 utf8로 변경 후 저장하기</li>
-</ul>
-<ul>
-<li>해결책4<br>해결책1번의 코드를 작성한 후, encoding=cp949 라는 코드를 통해 불러오기<br>(이렇게 해서 공공데이터 불러오기를 성공하였으나, utf8의 호환성이 가장 좋기에 utf8로 불러오는 것이 가장 좋다고 판단되어집니다.)</li>
-</ul>
-
+    <div class="collection-year">
+      <span class="collection-header">2020</span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      <footer class="post-footer">
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-05-04T20:40:02+09:00"
+              content="2020-05-04">
+          05-04
+        </time>
+      </div>
 
-        
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/05/04/%EC%8B%9C%EA%B3%84%EC%97%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0/" itemprop="url">
+            <span itemprop="name">시계열 데이터 전처리하기</span>
+          </a>
+      </div>
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/04/27/wglee87DB-%EC%97%91%EC%85%80%ED%8C%8C%EC%9D%BC-insert%ED%95%98%EA%B8%B0/" rel="prev" title="wglee87DB-엑셀파일-insert하기">
-      <i class="fa fa-chevron-left"></i> wglee87DB-엑셀파일-insert하기
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/05/04/%EC%8B%9C%EA%B3%84%EC%97%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0/" rel="next" title="시계열 데이터 전처리하기">
-      시계열 데이터 전처리하기 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+    </header>
   </article>
+
+
+    </div>
+  </div>
   
   
+  
+
   
 
 
@@ -325,7 +236,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas-공데이터-한글깨짐현상-문제해결"><span class="nav-number">1.</span> <span class="nav-text">pandas 공데이터 한글깨짐현상 문제해결</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
