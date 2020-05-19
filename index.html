@@ -146,6 +146,279 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/05/19/%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C-%EC%84%A4%EC%B9%98%EB%90%98%EC%96%B4%EC%9E%88%EB%8A%94-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B2%84%EC%A0%84-%EC%B2%B4%ED%81%AC%ED%95%98%EA%B8%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WGLee87">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geony's 데이터 세상">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/19/%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C-%EC%84%A4%EC%B9%98%EB%90%98%EC%96%B4%EC%9E%88%EB%8A%94-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B2%84%EC%A0%84-%EC%B2%B4%ED%81%AC%ED%95%98%EA%B8%B0/" class="post-title-link" itemprop="url">파이썬에서 설치되어있는 라이브러리 버전 체크하기</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-05-19 19:53:06 / Modified: 19:57:30" itemprop="dateCreated datePublished" datetime="2020-05-19T19:53:06+09:00">2020-05-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>파이썬을 사용하다 보면 사용하고자 하는 라이브러리 버전에 따라 같은 라이브러리임에도 불구하고 명령어가 다른 경우가 있어. 그럴 경우 설치된 라이브러리의 버전을 알아야 거기에 맞게 진행을 할 수 있겠지?</p>
+<p>이때, 설치한 라이브러리들의 버전이 무엇인지부터 먼저 확인해보자!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip freeze</span><br></pre></td></tr></table></figure>
+
+<pre><code>anaconda-client==1.7.2
+anaconda-navigator==1.9.12
+appnope==0.1.0
+asn1crypto==1.3.0
+attrs==19.3.0
+autopep8==1.5.2
+autopy==4.0.0
+backcall==0.1.0
+backports.functools-lru-cache==1.6.1
+backports.tempfile==1.0
+backports.weakref==1.0.post1
+beautifulsoup4==4.6.0
+bleach==3.1.0
+boto==2.49.0
+boto3==1.13.12
+botocore==1.16.12
+branca==0.4.0
+bs4==0.0.1
+cachetools==4.0.0
+certifi==2020.4.5.1
+cffi==1.14.0
+chardet==3.0.4
+chart-studio==1.0.0
+click==7.1.1
+cloudpickle==1.3.0
+clyent==1.2.2
+colorama==0.4.3
+colorlover==0.3.0
+conda==4.8.3
+conda-build==3.18.9
+conda-package-handling==1.6.0
+conda-verify==3.4.2
+configobj==5.0.6
+cryptography==2.8
+cufflinks==0.17.3
+cvxpy==1.0.31
+cycler==0.10.0
+cytoolz==0.10.1
+dask==2.14.0
+decorator==4.4.2
+defusedxml==0.6.0
+dill==0.3.1.1
+docutils==0.15.2
+dpkt==1.9.2
+ecos==2.0.7.post1
+entrypoints==0.3
+et-xmlfile==1.0.1
+filelock==3.0.12
+finance-datareader==0.9.6
+folium==0.10.1
+funcy==1.14
+future==0.18.2
+gensim==3.8.3
+glob2==0.7
+google-api-core==1.16.0
+google-auth==1.12.0
+google-auth-oauthlib==0.4.1
+google-cloud-bigquery==1.24.0
+google-cloud-core==1.3.0
+google-resumable-media==0.5.0
+googleapis-common-protos==1.51.0
+idna==2.9
+imageio==2.8.0
+importlib-metadata==1.5.0
+inflect==4.1.0
+ipykernel==5.1.4
+ipython==7.13.0
+ipython-genutils==0.2.0
+ipywidgets==7.5.1
+jaraco.itertools==5.0.0
+jdcal==1.4.1
+jedi==0.16.0
+Jinja2==2.11.1
+jmespath==0.10.0
+joblib==0.14.1
+JPype1==0.7.5
+jsonschema==3.2.0
+jupyter-client==6.1.2
+jupyter-core==4.6.3
+jupyterthemes==0.20.0
+kiwisolver==1.2.0
+konlpy==0.5.2
+lesscpy==0.14.0
+libarchive-c==2.8
+lief==0.9.0
+lxml==4.5.0
+MarkupSafe==1.1.1
+matplotlib==3.2.1
+missingno==0.4.2
+mistune==0.8.4
+mkl-fft==1.0.15
+mkl-random==1.1.0
+mkl-service==2.3.0
+more-itertools==8.2.0
+mpmath==1.1.0
+multiprocess==0.70.9
+navigator-updater==0.2.1
+nbconvert==5.6.1
+nbformat==5.0.4
+netifaces==0.10.9
+networkx==2.4
+nltk==3.5
+notebook==6.0.3
+numexpr==2.7.1
+numpy==1.18.1
+oauthlib==3.1.0
+olefile==0.46
+opencv-python==4.2.0.34
+openpyxl==3.0.3
+osqp==0.6.1
+packaging==20.3
+pandas==1.0.3
+pandas-gbq==0.13.1
+pandocfilters==1.4.2
+parso==0.6.2
+patsy==0.5.1
+pexpect==4.8.0
+pgmpy==0.1.10
+picklable-itertools==0.1.1
+pickleshare==0.7.5
+Pillow==7.0.0
+pkginfo==1.5.0.1
+plotly==4.5.0
+pluggy==0.13.1
+ply==3.11
+prometheus-client==0.7.1
+prompt-toolkit==3.0.4
+protobuf==3.11.3
+psutil==5.7.0
+ptyprocess==0.6.0
+py==1.8.1
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+pycodestyle==2.5.0
+pycosat==0.6.3
+pycparser==2.20
+pydata-google-auth==0.3.0
+Pygments==2.6.1
+pyLDAvis==2.1.2
+PyMySQL==0.9.3
+pyOpenSSL==19.1.0
+pyparsing==2.4.7
+pyrsistent==0.16.0
+PySocks==1.7.1
+pytest==5.4.2
+python-dateutil==2.8.1
+python-xlib==0.27
+pytz==2019.3
+PyWavelets==1.1.1
+PyYAML==5.3.1
+pyzmq==18.1.1
+QtPy==1.9.0
+regex==2020.5.14
+requests==2.23.0
+requests-file==1.4.3
+requests-oauthlib==1.3.0
+retrying==1.3.3
+rsa==4.0
+ruamel-yaml==0.15.87
+s3transfer==0.3.3
+schedule==0.6.0
+scikit-image==0.16.2
+scikit-learn==0.22.2.post1
+scipy==1.4.1
+scs==2.1.2
+seaborn==0.10.0
+selenium==3.141.0
+Send2Trash==1.5.0
+six==1.14.0
+sklearn==0.0
+smart-open==2.0.0
+soupsieve==2.0
+soynlp==0.0.493
+SQLAlchemy==1.3.16
+statsmodels==0.11.0
+sympy==1.5.1
+terminado==0.8.3
+testpath==0.4.4
+toolz==0.10.0
+torch==1.5.0
+tornado==6.0.4
+tqdm==4.44.1
+traitlets==4.3.3
+tweepy==3.8.0
+urllib3==1.25.8
+wcwidth==0.1.9
+webencodings==0.5.1
+wget==3.2
+widgetsnbextension==3.5.1
+wordcloud==1.7.0
+xlrd==1.2.0
+xmltodict==0.12.0
+zipp==2.2.0
+Note: you may need to restart the kernel to use updated packages.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>어때? 쉽지? 물론 특정 라이브러리를 잡아서 하는 방법도 있지만, 여기서 소개하는 방법은 설치된 모든 라이브러리의 버전을 확인할 수 있는 방법이야. 파이썬 라이브러리 종류가 매우 많은데 이 명령어 하나로 모든 설치된 라이브러리의 버전을 확인할 수 있으니까 상당히 편리한 것 같네.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/05/15/Data-Analytics-on-Football/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4471,69 +4744,6 @@ left, right도 있어</code></pre><figure class="highlight python"><table><tr><t
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/04/25/%EA%B3%B5%EB%B6%80%EB%82%B4%EC%9A%A9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="WGLee87">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Geony's 데이터 세상">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/25/%EA%B3%B5%EB%B6%80%EB%82%B4%EC%9A%A9/" class="post-title-link" itemprop="url">공부내용</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-25 14:56:58" itemprop="dateCreated datePublished" datetime="2020-04-25T14:56:58+09:00">2020-04-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li>markdown, vim, git 기초개념</li>
-<li>github에 repo 생성 후 파일 add, commit, push 하는 방법</li>
-<li>github 블로그 생성 (hexo를 통해)</li>
-</ol>
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4603,7 +4813,7 @@ left, right도 있어</code></pre><figure class="highlight python"><table><tr><t
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
