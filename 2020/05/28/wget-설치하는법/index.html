@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"wglee87.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="pandas 공데이터 한글깨짐현상 문제해결 공공데이터 포털에서 다운로드 받은 csv파일을 pandas에서 로딩할 때 한글깨짐 현상을 해결하는 방법에 대하여 알아보겠습니다. 한글 깨짐 현상을 해결하기 전에 영어는 아무 문제가 없지만, 한글 파일을 읽어올 때는 종종 문제가 발생하게 됩니다.   Encoding. 기본적인 이해   문자형 데이터는 컴퓨터가 인">
+  <meta name="description" content="Mac OS X에서 wget을 설치하는 방법wget는 정말 편리한 명령줄 유틸리티지만, 안타깝게도 OS X에는 포함되지 않았다. 물론  Curl은 적절한 대체물이 될 수 있지만, 종종 wget로 스크립트가 쓰여지고, curl을 사용하는 것으로 변환하는 것은 어렵고 시간이 오래 걸릴 수 있어서 wget이 선호되는 경향이 있다.  homebrew로 wget을">
 <meta property="og:type" content="article">
-<meta property="og:title" content="공공데이터csv_한글깨짐현상_문제해결.md">
-<meta property="og:url" content="http://wglee87.github.io/2020/04/29/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0csv-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90%ED%98%84%EC%83%81-%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-md/index.html">
+<meta property="og:title" content="wget 설치하는법">
+<meta property="og:url" content="http://wglee87.github.io/2020/05/28/wget-%EC%84%A4%EC%B9%98%ED%95%98%EB%8A%94%EB%B2%95/index.html">
 <meta property="og:site_name" content="Geony Data World">
-<meta property="og:description" content="pandas 공데이터 한글깨짐현상 문제해결 공공데이터 포털에서 다운로드 받은 csv파일을 pandas에서 로딩할 때 한글깨짐 현상을 해결하는 방법에 대하여 알아보겠습니다. 한글 깨짐 현상을 해결하기 전에 영어는 아무 문제가 없지만, 한글 파일을 읽어올 때는 종종 문제가 발생하게 됩니다.   Encoding. 기본적인 이해   문자형 데이터는 컴퓨터가 인">
+<meta property="og:description" content="Mac OS X에서 wget을 설치하는 방법wget는 정말 편리한 명령줄 유틸리티지만, 안타깝게도 OS X에는 포함되지 않았다. 물론  Curl은 적절한 대체물이 될 수 있지만, 종종 wget로 스크립트가 쓰여지고, curl을 사용하는 것으로 변환하는 것은 어렵고 시간이 오래 걸릴 수 있어서 wget이 선호되는 경향이 있다.  homebrew로 wget을">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-29T08:20:04.000Z">
-<meta property="article:modified_time" content="2020-04-29T08:26:46.937Z">
+<meta property="article:published_time" content="2020-05-28T10:44:58.000Z">
+<meta property="article:modified_time" content="2020-05-28T10:47:55.600Z">
 <meta property="article:author" content="WGLee87">
 <meta property="article:tag" content="data_analysis">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://wglee87.github.io/2020/04/29/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0csv-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90%ED%98%84%EC%83%81-%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-md/">
+<link rel="canonical" href="http://wglee87.github.io/2020/05/28/wget-%EC%84%A4%EC%B9%98%ED%95%98%EB%8A%94%EB%B2%95/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>공공데이터csv_한글깨짐현상_문제해결.md | Geony Data World</title>
+  <title>wget 설치하는법 | Geony Data World</title>
   
 
 
@@ -152,7 +152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/04/29/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0csv-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90%ED%98%84%EC%83%81-%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-md/">
+    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/05/28/wget-%EC%84%A4%EC%B9%98%ED%95%98%EB%8A%94%EB%B2%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          공공데이터csv_한글깨짐현상_문제해결.md
+          wget 설치하는법
         </h1>
 
         <div class="post-meta">
@@ -176,7 +176,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-04-29 17:20:04 / Modified: 17:26:46" itemprop="dateCreated datePublished" datetime="2020-04-29T17:20:04+09:00">2020-04-29</time>
+              <time title="Created: 2020-05-28 19:44:58 / Modified: 19:47:55" itemprop="dateCreated datePublished" datetime="2020-05-28T19:44:58+09:00">2020-05-28</time>
             </span>
 
           
@@ -190,63 +190,56 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="pandas-공데이터-한글깨짐현상-문제해결"><a href="#pandas-공데이터-한글깨짐현상-문제해결" class="headerlink" title="pandas 공데이터 한글깨짐현상 문제해결"></a>pandas 공데이터 한글깨짐현상 문제해결</h2><ul>
-<li>공공데이터 포털에서 다운로드 받은 csv파일을 pandas에서 로딩할 때 한글깨짐 현상을 해결하는 방법에 대하여 알아보겠습니다.</li>
-<li>한글 깨짐 현상을 해결하기 전에 영어는 아무 문제가 없지만, 한글 파일을 읽어올 때는 종종 문제가 발생하게 됩니다.</li>
-</ul>
-<ol>
-<li>Encoding. 기본적인 이해</li>
-</ol>
-<ul>
-<li><p>문자형 데이터는 컴퓨터가 인식을 하지 못하기 때문에 우리는 이것을 컴퓨터가 이해할 수 있도록 Bit 형태로 변형해야합니다.</p>
-</li>
-<li><p>1Byte = 8Bit</p>
-</li>
-<li><p>Ascii 계열의 문자열은 0~127까지 표현되기 때문에 1Byte 안에 충분히 표현될 수 있습니다. 하지만, 한글은 Ascii 안에 표현이 불가하기 때문에 표현하기 위해서는 Byte가 충분히 더 필요합니다.</p>
-</li>
-<li><p>인코딩은 한글과 같은 Ascii 범위를 벗어난 문자를 표현하기 위한 변형 작업이라고 이해하시면 쉽습니다. 하지만, 문제는 이러한 인코딩 방식이 여러가지 입니다.</p>
-</li>
-</ul>
-<ol start="2">
-<li>공공데이터(csv) 파일의 encoding</li>
-</ol>
-<ul>
-<li><p>공공데이터파일은 utf8 방식이면 좋겠으나, 아쉽게도(?) cp949 혹은 euc-kr 형식으로 인코딩이 되어 있습니다.</p>
-</li>
-<li><p>이러한 이유때문에 pandas에서 파일을 불러오면,,</p>
-<ul>
-<li>‘utf8 codec can’t decode byte 0xb1 in position 0: invalid start byte’</li>
-</ul>
-</li>
-</ul>
-<p>라는 에러메세지가 발생하게 됩니다.</p>
-<ul>
-<li>해결책1</li>
-</ul>
-<ul>
-<li>pandas에서 파일을 불러올 시, ‘engine=python’ 이라는 코드를 같이 작성하기</li>
-<li>df = pd.read_csv(‘test.csv’, engine=’python’)</li>
-<li>불러오게 되면 작동은 하나 한글이 ???형식으로 나타나게 되기도 합니다.</li>
-</ul>
-<ul>
-<li>해결책2</li>
-</ul>
-<ul>
-<li>pandas에서 파일을 불러올 시, ‘encoding=utf8’ 이라는 코드를 같이 작성하기</li>
-<li>df = pd.read_csv(‘test.csv’, encoding=’utf8’)</li>
-<li>그러나 공공데이터의 경우 해결되지 않는 경우가 많습니다.</li>
-</ul>
-<ul>
-<li>해결책3</li>
-</ul>
-<ul>
-<li>Excel에서 파일의 인코딩 옵션 변경하기</li>
-<li>파일을 불러온 후, 다름이름 저장하기를 통해 고급옵션의 파일인코딩 형식을 utf8로 변경 후 저장하기</li>
-</ul>
-<ul>
-<li>해결책4<br>해결책1번의 코드를 작성한 후, encoding=cp949 라는 코드를 통해 불러오기<br>(이렇게 해서 공공데이터 불러오기를 성공하였으나, utf8의 호환성이 가장 좋기에 utf8로 불러오는 것이 가장 좋다고 판단되어집니다.)</li>
-</ul>
+        <h6 id="Mac-OS-X에서-wget을-설치하는-방법"><a href="#Mac-OS-X에서-wget을-설치하는-방법" class="headerlink" title="Mac OS X에서 wget을 설치하는 방법"></a>Mac OS X에서 wget을 설치하는 방법</h6><pre><code>wget는 정말 편리한 명령줄 유틸리티지만, 안타깝게도 OS X에는 포함되지 않았다. 물론  Curl은 적절한 대체물이 될 수 있지만, 종종 wget로 스크립트가 쓰여지고, curl을 사용하는 것으로 변환하는 것은 어렵고 시간이 오래 걸릴 수 있어서 wget이 선호되는 경향이 있다.
 
+homebrew로 wget을 설치하면 된다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!brew install wget</span><br></pre></td></tr></table></figure>
+
+<pre><code>Updating Homebrew...
+[34m==&gt;[0m [1mAuto-updated Homebrew![0m
+Updated 2 taps (homebrew/core and homebrew/cask).
+[34m==&gt;[0m [1mUpdated Formulae[0m
+plenv               postgresql@11       swiftformat         tomee-webprofile
+postgresql          postgresql@9.5      tomee-plume
+postgresql@10       postgresql@9.6      tomee-plus
+[34m==&gt;[0m [1mUpdated Casks[0m
+cryo                                     switchresx
+
+[33mWarning:[0m wget 1.20.3_2 is already installed and up-to-date
+To reinstall 1.20.3_2, run `brew reinstall wget`</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">!brew uninstall --force node</span><br><span class="line">!brew uninstall icu4c &amp;&amp; brew install icu4c</span><br><span class="line">!brew unlink icu4c &amp;&amp; brew link icu4c --force</span><br><span class="line">!brew install node</span><br></pre></td></tr></table></figure>
+
+<pre><code>Uninstalling node... (4,660 files, 60.3MB)
+[31mError:[0m Refusing to uninstall /usr/local/Cellar/icu4c/66.1
+because it is required by graphviz, harfbuzz and pango, which are currently installed.
+You can override this and force removal with:
+  brew uninstall --ignore-dependencies icu4c
+Unlinking /usr/local/Cellar/icu4c/66.1... 0 symlinks removed
+[33mWarning:[0m Refusing to link macOS provided/shadowed software: icu4c
+If you need to have icu4c first in your PATH run:
+  echo &apos;export PATH=&quot;/usr/local/opt/icu4c/bin:$PATH&quot;&apos; &gt;&gt; /Users/wglee/.bash_profile
+  echo &apos;export PATH=&quot;/usr/local/opt/icu4c/sbin:$PATH&quot;&apos; &gt;&gt; /Users/wglee/.bash_profile
+
+For compilers to find icu4c you may need to set:
+  export LDFLAGS=&quot;-L/usr/local/opt/icu4c/lib&quot;
+  export CPPFLAGS=&quot;-I/usr/local/opt/icu4c/include&quot;
+Updating Homebrew...
+[34m==&gt;[0m [1mDownloading https://homebrew.bintray.com/bottles/node-14.3.0.catalina.bottle[0m
+[34m==&gt;[0m [1mDownloading from https://akamai.bintray.com/e3/e34c4c25365bc0f5cc245d791dd93[0m
+######################################################################## 100.0%
+[34m==&gt;[0m [1mPouring node-14.3.0.catalina.bottle.tar.gz[0m
+[34m==&gt;[0m [1mCaveats[0m
+Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+[34m==&gt;[0m [1mSummary[0m
+🍺  /usr/local/Cellar/node/14.3.0: 4,659 files, 60.8MB
+
+
+** 필자가 갑자기 hexo가 작동되지 않아 적잖이 당황하던 중 해결법을 찾아서 이것도 공유해.
+!brew uninstall --force node
+!brew uninstall icu4c &amp;&amp; brew install icu4c
+!brew unlink icu4c &amp;&amp; brew link icu4c --force
+!brew install node
+
+노드 언인스톨 후 재설치하면 문제 없이 작동한다.</code></pre>
     </div>
 
     
@@ -261,13 +254,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/27/wglee87DB-%EC%97%91%EC%85%80%ED%8C%8C%EC%9D%BC-insert%ED%95%98%EA%B8%B0/" rel="prev" title="wglee87DB-엑셀파일-insert하기">
-      <i class="fa fa-chevron-left"></i> wglee87DB-엑셀파일-insert하기
+    <a href="/2020/05/19/%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C-%EC%84%A4%EC%B9%98%EB%90%98%EC%96%B4%EC%9E%88%EB%8A%94-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B2%84%EC%A0%84-%EC%B2%B4%ED%81%AC%ED%95%98%EA%B8%B0/" rel="prev" title="파이썬에서 설치되어있는 라이브러리 버전 체크하기">
+      <i class="fa fa-chevron-left"></i> 파이썬에서 설치되어있는 라이브러리 버전 체크하기
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/05/04/%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC-%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5-%E1%84%89%E1%85%AE%E1%86%BA%E1%84%8C%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC%20%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%A9%20%E1%84%87%E1%85%A7%E1%86%AB%E1%84%92%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/" rel="next" title="시계열 데이터 전처리하기">
-      시계열 데이터 전처리하기 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -326,7 +316,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas-공데이터-한글깨짐현상-문제해결"><span class="nav-number">1.</span> <span class="nav-text">pandas 공데이터 한글깨짐현상 문제해결</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#Mac-OS-X에서-wget을-설치하는-방법"><span class="nav-number">1.</span> <span class="nav-text">Mac OS X에서 wget을 설치하는 방법</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
