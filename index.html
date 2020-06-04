@@ -147,6 +147,82 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/06/04/DataFrame-Functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WGLee87">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geony Data World">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/04/DataFrame-Functions/" class="post-title-link" itemprop="url">DataFrame Functions</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-04 20:22:46 / Modified: 20:23:27" itemprop="dateCreated datePublished" datetime="2020-06-04T20:22:46+09:00">2020-06-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h6 id="데이터-분포-변환"><a href="#데이터-분포-변환" class="headerlink" title="데이터 분포 변환"></a>데이터 분포 변환</h6><pre><code>대부분의 모델은 변수가 특정 분포를 따른다는 가정을 기반으로 한다. 예를 들어 선형 모델의 경우, 종속변수가 정규분포와 유사할 경우 성능이 높아지는 것으로 알려져 있다. 자주 쓰이는 방법은 Log, Exp, Sqrt 등 함수를 이용해 데이터 분포를 변환하는 것이다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"></span><br><span class="line"><span class="comment"># 특정 변수에만 함수 적용</span></span><br><span class="line">df[<span class="string">'X_log'</span>] = preprocessing.scale(np.log(df[<span class="string">'X'</span>]+<span class="number">1</span>)) <span class="comment"># 로그</span></span><br><span class="line">df[<span class="string">'X_sqrt'</span>] = preprocessing.scale(np.sqrt(df[<span class="string">'X'</span>]+<span class="number">1</span>)) <span class="comment"># 제곱근</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 데이터 프레임 전체에 함수 적용 (단, 숫자형 변수만 있어야 함)</span></span><br><span class="line">df_log = df.apply(<span class="keyword">lambda</span> x: np.log(x+<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<h6 id="중복된-행-제거"><a href="#중복된-행-제거" class="headerlink" title="중복된 행 제거"></a>중복된 행 제거</h6><pre><code>위, 아래 행이 모두 같은 성분을 가지는 행이 여러개 있을때, 하나만 사용하기(데이터프레임)
+중복된 행이 제거되고 unique한 값만 가져올 수 있다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df.drop_duplicates()</span><br><span class="line"></span><br><span class="line">df.drop_duplicated() 는 boolean값으로 반환!</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'name'</span>] = df[<span class="string">'name'</span>].apply(<span class="keyword">lambda</span> e: e.split()[<span class="number">0</span>])</span><br><span class="line">df[<span class="string">'email'</span>].str.get(i=<span class="number">0</span>)  데이터프레임이나 시리즈형식에서 문자를 나누고 [<span class="number">0</span>]번째 문자만 가져오기</span><br></pre></td></tr></table></figure>
+
+<h6 id="데이터-프레임-모든-열에-특정-스칼라값-or-특정-컬럼-value-연산"><a href="#데이터-프레임-모든-열에-특정-스칼라값-or-특정-컬럼-value-연산" class="headerlink" title="데이터 프레임 모든 열에 특정 스칼라값 or 특정 컬럼.value 연산"></a>데이터 프레임 모든 열에 특정 스칼라값 or 특정 컬럼.value 연산</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[컬럼명] *= (스칼라값)  / 해당 데이터프레임 컬럼이 와도 됨</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[컬럼명] = df[컬럼명].div(스칼라값 <span class="keyword">or</span> 컬럼, axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>   a=10, b=20, c=3</p>
+<p>   Operator    Description    Example<br>    +    더하기             a + b        30<br>    -    빼기                a - b       -10<br>    *    곱하기              a * b       200<br>    /    나누기              b / a        2.0<br>    % 나머지            b % a        0<br>    **    제곱               a ** c      1000<br>    //    몫                 a // c          3</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/06/02/SQLite-db-view-tool-md/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4644,72 +4720,6 @@ left, right도 있어</code></pre><figure class="highlight python"><table><tr><t
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/05/07/Python-Pandas-%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5-%E1%84%90%E1%85%B3%E1%86%A8%E1%84%8C%E1%85%A5%E1%86%BC-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A5%E1%86%B7%E1%84%80%E1%85%A1%E1%86%B9%E1%84%8B%E1%85%B4-row%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8C%E1%85%A6%E1%84%80%E1%85%A5%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="WGLee87">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Geony Data World">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/07/Python-Pandas-%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5-%E1%84%90%E1%85%B3%E1%86%A8%E1%84%8C%E1%85%A5%E1%86%BC-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A5%E1%86%B7%E1%84%80%E1%85%A1%E1%86%B9%E1%84%8B%E1%85%B4-row%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8C%E1%85%A6%E1%84%80%E1%85%A5%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/" class="post-title-link" itemprop="url">Python Pandas 에서 특정 컬럼값의 row를 제거하기</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-05-07 09:58:34 / Modified: 10:24:28" itemprop="dateCreated datePublished" datetime="2020-05-07T09:58:34+09:00">2020-05-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <img width="791" alt="특정값제거1" src="https://user-images.githubusercontent.com/59719711/81243933-11df9100-904c-11ea-9c84-b72eb2064d8f.png">
-
-<p>파이썬의 Pandas를 사용하면서 특정값의 row 가 존재할 때, 이 row를 제거하려면 그 값이 들어가는 row를 제외한 나머지 값들을 다시 dataframe으로 load하면 손쉽게 데이터를 처리할 수 있다.</p>
-<p>위의 그림은 랜덤으로 생성한 데이터에서 몇몇 부분의 데이터가 0이 존재하는 그림이다. 여기에서 0값을 가지는 데이터를 제거하는 데이터 전처리 작업이다.</p>
-<p>아래 그림은 그 결과값이다.</p>
-<img width="508" alt="특정값제거2" src="https://user-images.githubusercontent.com/59719711/81244154-8b777f00-904c-11ea-8a9d-f38221055a60.png">
-
-<p>null값이 아닌 특정값을 제거하고자 할 때 사용하면 데이터 전처리를 할 떄 매우 유용할 것으로 보인다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4779,7 +4789,7 @@ left, right도 있어</code></pre><figure class="highlight python"><table><tr><t
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
