@@ -20,16 +20,20 @@
     var CONFIG = {"hostname":"wglee87.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Geony Data World">
-<meta property="og:url" content="http://wglee87.github.io/archives/page/2/index.html">
+  <meta name="description" content="[전체 데이터베이스 용량 확인]select table_schema ‘Linear_Regression’, sum(data_length + index_length) &#x2F; 1024 &#x2F; 1024 ‘size(MB)’ from information_schema.tables group by table_schema [특정 DB명 status 확인]show table sta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Mysql]Database 용량 확인">
+<meta property="og:url" content="http://wglee87.github.io/2020/06/09/Mysql-Database-%EC%9A%A9%EB%9F%89-%ED%99%95%EC%9D%B8/index.html">
 <meta property="og:site_name" content="Geony Data World">
+<meta property="og:description" content="[전체 데이터베이스 용량 확인]select table_schema ‘Linear_Regression’, sum(data_length + index_length) &#x2F; 1024 &#x2F; 1024 ‘size(MB)’ from information_schema.tables group by table_schema [특정 DB명 status 확인]show table sta">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-09T10:02:14.000Z">
+<meta property="article:modified_time" content="2020-06-09T10:04:06.953Z">
 <meta property="article:author" content="WGLee87">
 <meta property="article:tag" content="data_analysis">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://wglee87.github.io/archives/page/2/">
+<link rel="canonical" href="http://wglee87.github.io/2020/06/09/Mysql-Database-%EC%9A%A9%EB%9F%89-%ED%99%95%EC%9D%B8/">
 
 
 <script id="page-configurations">
@@ -37,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Geony Data World</title>
+  <title>[Mysql]Database 용량 확인 | Geony Data World</title>
   
 
 
@@ -141,234 +145,80 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 20 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/06/09/Mysql-Database-%EC%9A%A9%EB%9F%89-%ED%99%95%EC%9D%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WGLee87">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geony Data World">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Mysql]Database 용량 확인
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-09 19:02:14 / Modified: 19:04:06" itemprop="dateCreated datePublished" datetime="2020-06-09T19:02:14+09:00">2020-06-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-08T14:19:22+09:00"
-              content="2020-05-08">
-          05-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/05/08/%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%94%84%EB%A0%88%EC%9E%84-%EB%B3%91%ED%95%A9%ED%95%98%EA%B8%B0-merge-concat/" itemprop="url">
-            <span itemprop="name">데이터프레임 병합하기(merge, concat)</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-07T09:58:34+09:00"
-              content="2020-05-07">
-          05-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/05/07/Python-Pandas-%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5-%E1%84%90%E1%85%B3%E1%86%A8%E1%84%8C%E1%85%A5%E1%86%BC-%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A5%E1%86%B7%E1%84%80%E1%85%A1%E1%86%B9%E1%84%8B%E1%85%B4-row%E1%84%85%E1%85%B3%E1%86%AF-%E1%84%8C%E1%85%A6%E1%84%80%E1%85%A5%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/" itemprop="url">
-            <span itemprop="name">Python Pandas 에서 특정 컬럼값의 row를 제거하기</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-04T20:40:02+09:00"
-              content="2020-05-04">
-          05-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/05/04/%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC-%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5-%E1%84%89%E1%85%AE%E1%86%BA%E1%84%8C%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC%20%E1%84%83%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%A9%20%E1%84%87%E1%85%A7%E1%86%AB%E1%84%92%E1%85%AA%E1%86%AB%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5/" itemprop="url">
-            <span itemprop="name">시계열 데이터 전처리하기</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-29T17:20:04+09:00"
-              content="2020-04-29">
-          04-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/29/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0csv-%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90%ED%98%84%EC%83%81-%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-md/" itemprop="url">
-            <span itemprop="name">공공데이터csv_한글깨짐현상_문제해결.md</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-27T19:24:50+09:00"
-              content="2020-04-27">
-          04-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/27/wglee87DB-%EC%97%91%EC%85%80%ED%8C%8C%EC%9D%BC-insert%ED%95%98%EA%B8%B0/" itemprop="url">
-            <span itemprop="name">wglee87DB-엑셀파일-insert하기</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-25T14:56:58+09:00"
-              content="2020-04-25">
-          04-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/25/%EA%B3%B5%EB%B6%80%EB%82%B4%EC%9A%A9/" itemprop="url">
-            <span itemprop="name">공부내용</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-22T21:03:11+09:00"
-              content="2020-04-22">
-          04-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/22/200422-%EA%B3%B5%EB%B6%80%EB%82%B4%EC%9A%A9/" itemprop="url">
-            <span itemprop="name">200422-공부내용</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-20T21:45:17+09:00"
-              content="2020-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/20/200420-%EA%B3%B5%EB%B6%80%EB%82%B4%EC%9A%A9/" itemprop="url">
-            <span itemprop="name">200420-공부내용</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-18T21:14:50+09:00"
-              content="2020-04-18">
-          04-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/18/200418-%EA%B3%B5%EB%B6%80%EB%82%B4%EC%9A%A9/" itemprop="url">
-            <span itemprop="name">200418-공부내용</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-17T16:23:20+09:00"
-              content="2020-04-17">
-          04-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/17/git-is-awesome/" itemprop="url">
-            <span itemprop="name">git is awesome</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <p>[전체 데이터베이스 용량 확인]<br>select table_schema ‘Linear_Regression’, sum(data_length + index_length) / 1024 / 1024 ‘size(MB)’ from information_schema.tables group by table_schema</p>
+<p>[특정 DB명 status 확인]<br>show table status like ‘DB명’</p>
+<p>[특정 DB 용량 늘리기]<br>alter table ‘DB명’ max_rows = 400000000 avg_row_length=1500</p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/04/DataFrame-Functions/" rel="prev" title="DataFrame Functions">
+      <i class="fa fa-chevron-left"></i> DataFrame Functions
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-  </nav>
+  
+  
 
 
 
