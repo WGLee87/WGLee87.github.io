@@ -147,6 +147,332 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/06/23/%EB%B9%84%EC%A7%80%EB%8F%84%ED%95%99%EC%8A%B5-PCA-%EC%A3%BC%EC%84%B1%EB%B6%84-%EB%B6%84%EC%84%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WGLee87">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Geony Data World">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/23/%EB%B9%84%EC%A7%80%EB%8F%84%ED%95%99%EC%8A%B5-PCA-%EC%A3%BC%EC%84%B1%EB%B6%84-%EB%B6%84%EC%84%9D/" class="post-title-link" itemprop="url">비지도학습 : PCA 주성분 분석</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-23 19:40:19 / Modified: 20:13:59" itemprop="dateCreated datePublished" datetime="2020-06-23T19:40:19+09:00">2020-06-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>비지도 학습을 사용해 데이터를 변환하는 이유는 여러가지이다. 가장 일반적으로는 데이터를 시각화 압축, 추가 처리를 위해 정보가 더 잘 드러나도록 하기 위해서이다.</p>
+<ol>
+<li><h6 id="주성분-분석-PCA"><a href="#주성분-분석-PCA" class="headerlink" title="주성분 분석(PCA)"></a>주성분 분석(PCA)</h6></li>
+</ol>
+<p>PCA의 본질은 탐색적 분석이다. 즉, 변인을 탐색해서 변환을 통해 주성분을 결정하는 방법이다. 주성분이란 데이터를 구성하는 특성 중 데이터를 가장 잘 설명하는 특성을 말한다. 데이터의 특성이 많을때 중요하다고 판단되는 일부 특성을 활용하여 데이터를 설명 또는 모델링하고자 할때 PCA를 사용한다. 그러다보니 주성분을 알아보는 것 외에 차원을 축소하는 기능을 한다고 볼 수 있는 것이다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mglearn</span><br><span class="line">mglearn.plots.plot_pca_illustration()</span><br></pre></td></tr></table></figure>
+
+<img width="607" alt="output_2_0" src="https://user-images.githubusercontent.com/59719711/85394431-871a0d80-b589-11ea-8849-97f76e7d5163.png">
+
+
+
+<p>왼쪽 위 그래프에서 분산이 가장 큰 방향을 찾는다. 바로 성분 1이다. 이 방향은 데이터에서 가장 많은 정보를 담고 있다. 즉, 특성들의 상관관계가 가장 큰 방향이다. 그 후 첫 번째 방향과 직간인 방향 중에서 가장 많은 정보를 담은 방향을 찾는다.  해당 그래프에서 주성분을 하나로 선정한다면 2번째 성분은 제거된다. 그리고 다시 원래 모양으로 회전시킨다. 따라서 이러한 변환은 데이터에서 노이즈를 제거하거나 주성분에서 유지되는 정보를 시각화는데 종종 사용된다.</p>
+<h5 id="예시"><a href="#예시" class="headerlink" title="예시)"></a>예시)</h5><p>판다스에서 가장 유명한 붓꽃 데이터를 불러온다. 그 후 각 특성의 데이터를 스케일링한 후 주성분 분석을 실시하였다</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iris_df = sns.load_dataset(<span class="string">'iris'</span>)</span><br><span class="line">iris_df.tail(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>147</th>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>virginica</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>virginica</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>virginica</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler  <span class="comment"># 표준화 패키지 라이브러리 </span></span><br><span class="line">x = df.drop([<span class="string">'target'</span>], axis=<span class="number">1</span>).values <span class="comment"># 독립변인들의 value값만 추출</span></span><br><span class="line">y = df[<span class="string">'target'</span>].values <span class="comment"># 종속변인 추출</span></span><br><span class="line"></span><br><span class="line">x = StandardScaler().fit_transform(x) <span class="comment"># x객체에 x를 표준화한 데이터를 저장</span></span><br><span class="line"></span><br><span class="line">features = [<span class="string">'sepal length'</span>, <span class="string">'sepal width'</span>, <span class="string">'petal length'</span>, <span class="string">'petal width'</span>]</span><br><span class="line">pd.DataFrame(x, columns=features).head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+      <th>petal length</th>
+      <th>petal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.900681</td>
+      <td>1.032057</td>
+      <td>-1.341272</td>
+      <td>-1.312977</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-1.143017</td>
+      <td>-0.124958</td>
+      <td>-1.341272</td>
+      <td>-1.312977</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-1.385353</td>
+      <td>0.337848</td>
+      <td>-1.398138</td>
+      <td>-1.312977</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-1.506521</td>
+      <td>0.106445</td>
+      <td>-1.284407</td>
+      <td>-1.312977</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-1.021849</td>
+      <td>1.263460</td>
+      <td>-1.341272</td>
+      <td>-1.312977</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA(n_components=<span class="number">2</span>) <span class="comment"># 주성분을 몇개로 할지 결정</span></span><br><span class="line">printcipalComponents = pca.fit_transform(x)</span><br><span class="line">principalDf = pd.DataFrame(data=printcipalComponents, columns = [<span class="string">'principal component1'</span>, <span class="string">'principal component2'</span>])</span><br><span class="line"><span class="comment"># 주성분으로 이루어진 데이터 프레임 구성</span></span><br><span class="line">principalDf</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>principal component1</th>
+      <th>principal component2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-2.264542</td>
+      <td>0.505704</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-2.086426</td>
+      <td>-0.655405</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2.367950</td>
+      <td>-0.318477</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-2.304197</td>
+      <td>-0.575368</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-2.388777</td>
+      <td>0.674767</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>1.870522</td>
+      <td>0.382822</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>1.558492</td>
+      <td>-0.905314</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>1.520845</td>
+      <td>0.266795</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>1.376391</td>
+      <td>1.016362</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>0.959299</td>
+      <td>-0.022284</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 2 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pca.explained_variance_ratio_</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([0.72770452, 0.23030523])</code></pre><p>주성분을 2개로 했을때는 첫번째 성분이 데이터를 72%를 설명한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pca.components_</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[ 0.52237162, -0.26335492,  0.58125401,  0.56561105],
+       [ 0.37231836,  0.92555649,  0.02109478,  0.06541577]])</code></pre><p>위의 주성분 2개에서 각 변수 중요도</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">finalDf = pd.concat([principalDf, df[[<span class="string">'target'</span>]]], axis = <span class="number">1</span>)</span><br><span class="line">fig = plt.figure(figsize = (<span class="number">8</span>, <span class="number">8</span>))</span><br><span class="line">ax = fig.add_subplot(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">'Principal Component 1'</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">'Principal Component 2'</span>, fontsize = <span class="number">15</span>)</span><br><span class="line">ax.set_title(<span class="string">'2 component PCA'</span>, fontsize=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">targets = [<span class="string">'Iris-setosa'</span>, <span class="string">'Iris-versicolor'</span>, <span class="string">'Iris-virginica'</span>]</span><br><span class="line">colors = [<span class="string">'r'</span>, <span class="string">'g'</span>, <span class="string">'b'</span>]</span><br><span class="line"><span class="keyword">for</span> target, color <span class="keyword">in</span> zip(targets,colors):</span><br><span class="line">    indicesToKeep = finalDf[<span class="string">'target'</span>] == target</span><br><span class="line">    ax.scatter(finalDf.loc[indicesToKeep, <span class="string">'principal component1'</span>]</span><br><span class="line">               , finalDf.loc[indicesToKeep, <span class="string">'principal component2'</span>]</span><br><span class="line">               , c = color</span><br><span class="line">               , s = <span class="number">50</span>)</span><br><span class="line">ax.legend(targets)</span><br><span class="line">ax.grid()</span><br></pre></td></tr></table></figure>
+
+
+<img width="498" alt="output_12_0" src="https://user-images.githubusercontent.com/59719711/85397142-fdb90a00-b58d-11ea-8df1-a25dec0f0a2e.png">
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/06/17/mglearn%EC%97%90-%EB%8C%80%ED%95%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1098,1305 +1424,6 @@ Note: you may need to restart the kernel to use updated packages.</code></pre><f
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://wglee87.github.io/2020/05/14/leverage-outliar-cooks-distance-anova/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="WGLee87">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Geony Data World">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/14/leverage-outliar-cooks-distance-anova/" class="post-title-link" itemprop="url">leverage-outliar-cooks_distance_anova</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-05-14 20:01:27 / Modified: 20:02:11" itemprop="dateCreated datePublished" datetime="2020-05-14T20:01:27+09:00">2020-05-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm</span><br></pre></td></tr></table></figure>
-
-<h4 id="레버리지-leverage"><a href="#레버리지-leverage" class="headerlink" title="레버리지 (leverage)"></a>레버리지 (leverage)</h4><pre><code>독립변수의 전체 데이터가 아닌 개별적인 데이터 표본 하나하나가 회귀분석 결과에 미치는 영향력은 레버리지 분석이나 아웃라이어 분석을 통해 알 수 있다.
-레버리지(leverage)는 실제 종속변수값  𝑦 가 예측치(predicted target)  𝑦̂  에 미치는 영향을 나타낸 값이다. self-influence, self-sensitivity 라고도 한다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_boston</span><br><span class="line"></span><br><span class="line">boston = load_boston()</span><br><span class="line"></span><br><span class="line">dfx = pd.DataFrame(boston.data, columns=boston.feature_names)</span><br><span class="line">dfy = pd.DataFrame(boston.target, columns=[<span class="string">"MEDV"</span>])</span><br><span class="line">df = pd.concat([dfx,dfy],axis=<span class="number">1</span>)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}</code></pre><p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>CRIM</th>
-      <th>ZN</th>
-      <th>INDUS</th>
-      <th>CHAS</th>
-      <th>NOX</th>
-      <th>RM</th>
-      <th>AGE</th>
-      <th>DIS</th>
-      <th>RAD</th>
-      <th>TAX</th>
-      <th>PTRATIO</th>
-      <th>B</th>
-      <th>LSTAT</th>
-      <th>MEDV</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.00632</td>
-      <td>18.0</td>
-      <td>2.31</td>
-      <td>0.0</td>
-      <td>0.538</td>
-      <td>6.575</td>
-      <td>65.2</td>
-      <td>4.0900</td>
-      <td>1.0</td>
-      <td>296.0</td>
-      <td>15.3</td>
-      <td>396.90</td>
-      <td>4.98</td>
-      <td>24.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.02731</td>
-      <td>0.0</td>
-      <td>7.07</td>
-      <td>0.0</td>
-      <td>0.469</td>
-      <td>6.421</td>
-      <td>78.9</td>
-      <td>4.9671</td>
-      <td>2.0</td>
-      <td>242.0</td>
-      <td>17.8</td>
-      <td>396.90</td>
-      <td>9.14</td>
-      <td>21.6</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.02729</td>
-      <td>0.0</td>
-      <td>7.07</td>
-      <td>0.0</td>
-      <td>0.469</td>
-      <td>7.185</td>
-      <td>61.1</td>
-      <td>4.9671</td>
-      <td>2.0</td>
-      <td>242.0</td>
-      <td>17.8</td>
-      <td>392.83</td>
-      <td>4.03</td>
-      <td>34.7</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.03237</td>
-      <td>0.0</td>
-      <td>2.18</td>
-      <td>0.0</td>
-      <td>0.458</td>
-      <td>6.998</td>
-      <td>45.8</td>
-      <td>6.0622</td>
-      <td>3.0</td>
-      <td>222.0</td>
-      <td>18.7</td>
-      <td>394.63</td>
-      <td>2.94</td>
-      <td>33.4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.06905</td>
-      <td>0.0</td>
-      <td>2.18</td>
-      <td>0.0</td>
-      <td>0.458</td>
-      <td>7.147</td>
-      <td>54.2</td>
-      <td>6.0622</td>
-      <td>3.0</td>
-      <td>222.0</td>
-      <td>18.7</td>
-      <td>396.90</td>
-      <td>5.33</td>
-      <td>36.2</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>501</th>
-      <td>0.06263</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.593</td>
-      <td>69.1</td>
-      <td>2.4786</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>391.99</td>
-      <td>9.67</td>
-      <td>22.4</td>
-    </tr>
-    <tr>
-      <th>502</th>
-      <td>0.04527</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.120</td>
-      <td>76.7</td>
-      <td>2.2875</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>396.90</td>
-      <td>9.08</td>
-      <td>20.6</td>
-    </tr>
-    <tr>
-      <th>503</th>
-      <td>0.06076</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.976</td>
-      <td>91.0</td>
-      <td>2.1675</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>396.90</td>
-      <td>5.64</td>
-      <td>23.9</td>
-    </tr>
-    <tr>
-      <th>504</th>
-      <td>0.10959</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.794</td>
-      <td>89.3</td>
-      <td>2.3889</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>393.45</td>
-      <td>6.48</td>
-      <td>22.0</td>
-    </tr>
-    <tr>
-      <th>505</th>
-      <td>0.04741</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.030</td>
-      <td>80.8</td>
-      <td>2.5050</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>396.90</td>
-      <td>7.88</td>
-      <td>11.9</td>
-    </tr>
-  </tbody>
-</table>
-<p>506 rows × 14 columns</p>
-</div>
-
-
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dfX = sm.add_constant(dfx)</span><br><span class="line">df0 = pd.concat([dfX, dfy],axis=<span class="number">1</span>)</span><br><span class="line">df0</span><br></pre></td></tr></table></figure>
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}</code></pre><p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>const</th>
-      <th>CRIM</th>
-      <th>ZN</th>
-      <th>INDUS</th>
-      <th>CHAS</th>
-      <th>NOX</th>
-      <th>RM</th>
-      <th>AGE</th>
-      <th>DIS</th>
-      <th>RAD</th>
-      <th>TAX</th>
-      <th>PTRATIO</th>
-      <th>B</th>
-      <th>LSTAT</th>
-      <th>MEDV</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1.0</td>
-      <td>0.00632</td>
-      <td>18.0</td>
-      <td>2.31</td>
-      <td>0.0</td>
-      <td>0.538</td>
-      <td>6.575</td>
-      <td>65.2</td>
-      <td>4.0900</td>
-      <td>1.0</td>
-      <td>296.0</td>
-      <td>15.3</td>
-      <td>396.90</td>
-      <td>4.98</td>
-      <td>24.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1.0</td>
-      <td>0.02731</td>
-      <td>0.0</td>
-      <td>7.07</td>
-      <td>0.0</td>
-      <td>0.469</td>
-      <td>6.421</td>
-      <td>78.9</td>
-      <td>4.9671</td>
-      <td>2.0</td>
-      <td>242.0</td>
-      <td>17.8</td>
-      <td>396.90</td>
-      <td>9.14</td>
-      <td>21.6</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1.0</td>
-      <td>0.02729</td>
-      <td>0.0</td>
-      <td>7.07</td>
-      <td>0.0</td>
-      <td>0.469</td>
-      <td>7.185</td>
-      <td>61.1</td>
-      <td>4.9671</td>
-      <td>2.0</td>
-      <td>242.0</td>
-      <td>17.8</td>
-      <td>392.83</td>
-      <td>4.03</td>
-      <td>34.7</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1.0</td>
-      <td>0.03237</td>
-      <td>0.0</td>
-      <td>2.18</td>
-      <td>0.0</td>
-      <td>0.458</td>
-      <td>6.998</td>
-      <td>45.8</td>
-      <td>6.0622</td>
-      <td>3.0</td>
-      <td>222.0</td>
-      <td>18.7</td>
-      <td>394.63</td>
-      <td>2.94</td>
-      <td>33.4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1.0</td>
-      <td>0.06905</td>
-      <td>0.0</td>
-      <td>2.18</td>
-      <td>0.0</td>
-      <td>0.458</td>
-      <td>7.147</td>
-      <td>54.2</td>
-      <td>6.0622</td>
-      <td>3.0</td>
-      <td>222.0</td>
-      <td>18.7</td>
-      <td>396.90</td>
-      <td>5.33</td>
-      <td>36.2</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>501</th>
-      <td>1.0</td>
-      <td>0.06263</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.593</td>
-      <td>69.1</td>
-      <td>2.4786</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>391.99</td>
-      <td>9.67</td>
-      <td>22.4</td>
-    </tr>
-    <tr>
-      <th>502</th>
-      <td>1.0</td>
-      <td>0.04527</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.120</td>
-      <td>76.7</td>
-      <td>2.2875</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>396.90</td>
-      <td>9.08</td>
-      <td>20.6</td>
-    </tr>
-    <tr>
-      <th>503</th>
-      <td>1.0</td>
-      <td>0.06076</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.976</td>
-      <td>91.0</td>
-      <td>2.1675</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>396.90</td>
-      <td>5.64</td>
-      <td>23.9</td>
-    </tr>
-    <tr>
-      <th>504</th>
-      <td>1.0</td>
-      <td>0.10959</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.794</td>
-      <td>89.3</td>
-      <td>2.3889</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>393.45</td>
-      <td>6.48</td>
-      <td>22.0</td>
-    </tr>
-    <tr>
-      <th>505</th>
-      <td>1.0</td>
-      <td>0.04741</td>
-      <td>0.0</td>
-      <td>11.93</td>
-      <td>0.0</td>
-      <td>0.573</td>
-      <td>6.030</td>
-      <td>80.8</td>
-      <td>2.5050</td>
-      <td>1.0</td>
-      <td>273.0</td>
-      <td>21.0</td>
-      <td>396.90</td>
-      <td>7.88</td>
-      <td>11.9</td>
-    </tr>
-  </tbody>
-</table>
-<p>506 rows × 15 columns</p>
-</div>
-
-
-
-<h5 id="statsmodels를-이용한-레버리지-계산"><a href="#statsmodels를-이용한-레버리지-계산" class="headerlink" title="statsmodels를 이용한 레버리지 계산"></a>statsmodels를 이용한 레버리지 계산</h5><pre><code>레버리지 값은 RegressionResults 클래스의 get_influence 메서드로 다음과 같이 구할 수 있다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_regression</span><br><span class="line"></span><br><span class="line"><span class="comment"># 100개의 데이터 생성</span></span><br><span class="line">X0, y, coef = make_regression(n_samples=<span class="number">100</span>, n_features=<span class="number">1</span>, noise=<span class="number">20</span>,</span><br><span class="line">                             coef=<span class="literal">True</span>, random_state=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 레버리지가 높은 가상의 데이터를 추가</span></span><br><span class="line">data_100 = (<span class="number">4</span>, <span class="number">300</span>)</span><br><span class="line">data_101 = (<span class="number">3</span>, <span class="number">150</span>)</span><br><span class="line">X0 = np.vstack([X0, np.array([data_100[:<span class="number">1</span>], data_101[:<span class="number">1</span>]])])</span><br><span class="line">X = sm.add_constant(X0) <span class="comment">#상수항 추가</span></span><br><span class="line">y = np.hstack([y, [data_100[<span class="number">1</span>], data_101[<span class="number">1</span>]]])</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">14</span>,<span class="number">6</span>))</span><br><span class="line">plt.scatter(X0, y, s=<span class="number">30</span>)</span><br><span class="line">plt.xlabel(<span class="string">"x"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"y"</span>)</span><br><span class="line">plt.title(<span class="string">"가상의 회귀분석용 데이터"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<img width="849" alt="output_6_0" src="https://user-images.githubusercontent.com/59719711/81926194-91f19200-961c-11ea-9b3f-3acaa0daccab.png">
-
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = sm.OLS(pd.DataFrame(y), pd.DataFrame(X))</span><br><span class="line">result = model.fit()</span><br><span class="line">print(result.summary())</span><br></pre></td></tr></table></figure>
-
-<pre><code>                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                      0   R-squared:                       0.936
-Model:                            OLS   Adj. R-squared:                  0.935
-Method:                 Least Squares   F-statistic:                     1464.
-Date:                Thu, 14 May 2020   Prob (F-statistic):           1.61e-61
-Time:                        14:22:53   Log-Likelihood:                -452.71
-No. Observations:                 102   AIC:                             909.4
-Df Residuals:                     100   BIC:                             914.7
-Df Model:                           1                                         
-Covariance Type:            nonrobust                                         
-==============================================================================
-                 coef    std err          t      P&gt;|t|      [0.025      0.975]
-------------------------------------------------------------------------------
-0              3.2565      2.065      1.577      0.118      -0.840       7.353
-1             78.3379      2.048     38.260      0.000      74.276      82.400
-==============================================================================
-Omnibus:                       16.191   Durbin-Watson:                   1.885
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):               36.807
-Skew:                          -0.534   Prob(JB):                     1.02e-08
-Kurtosis:                       5.742   Cond. No.                         1.14
-==============================================================================
-
-Warnings:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-
-
-선형회귀 결과에서 get_influence 메서드를 호출하면 영향도 정보 객체를 구할 수 있고, 이 객체는 hat_matrix_diag 속성으로 레버리지 벡터의 값을 가지고도 있어</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">influence = result.get_influence()</span><br><span class="line">hat = influence.hat_matrix_diag</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">14</span>,<span class="number">6</span>))</span><br><span class="line">plt. stem(hat)</span><br><span class="line">plt.axhline(<span class="number">0.02</span>, c = <span class="string">'g'</span>, ls = <span class="string">'--'</span>) <span class="comment"># c = color , ls = linestyle</span></span><br><span class="line">plt.title(<span class="string">'각 데이터의 레버리지 값'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>/opt/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
-  &quot;&quot;&quot;</code></pre><img width="831" alt="output_9_1" src="https://user-images.githubusercontent.com/59719711/81926258-a6ce2580-961c-11ea-9442-38672fbc831a.png">
-
-
-<pre><code>그래프를 그리는 코드에서 0.02의 값은 레버리지 평균값을 구하는 공식 독립변수의 갯수 / 데이터의 갯수 로 구하면 된다</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![스크린샷 <span class="number">2020</span><span class="number">-05</span><span class="number">-14</span> 오후 <span class="number">2</span> <span class="number">31</span> <span class="number">46</span>](https://user-images.githubusercontent.com/<span class="number">59719711</span>/<span class="number">81926278</span>-b2215100<span class="number">-961</span>c<span class="number">-11</span>ea<span class="number">-9613</span>-c5ba582d5de0.png)</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">14</span>,<span class="number">6</span>))</span><br><span class="line">ax = plt.subplot()</span><br><span class="line">plt.scatter(X0, y,s=<span class="number">30</span>)</span><br><span class="line">sm.graphics.abline_plot(model_results=result, ax=ax)</span><br><span class="line"></span><br><span class="line">idx = hat &gt; <span class="number">0.05</span></span><br><span class="line">plt.scatter(X0[idx], y[idx], s=<span class="number">300</span>, c=<span class="string">"r"</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">plt.title(<span class="string">"회귀분석 결과와 레버리지 포인트"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<img width="833" alt="output_12_0" src="https://user-images.githubusercontent.com/59719711/81926328-bc434f80-961c-11ea-89ef-927b80f666c7.png">
-
-
-<pre><code>그래프를 토대로 해석을 하자면, 데이터가 혼자만 너무 작거나 너무 크게 단독으로 존재할수록 레버리지가 커짐을 알 수 있어. 이 말은 저런 데이터은 전체 회귀분석 결과값에 큰 영향을 미친다는 말이야</code></pre><h4 id="아웃라이어-outlier"><a href="#아웃라이어-outlier" class="headerlink" title="아웃라이어(outlier)"></a>아웃라이어(outlier)</h4><pre><code>데이터와 동떨어진 값을 가지는 데이터, 즉 잔차가 큰 데이터를 아웃라이어(outlier)라고 하는데, 잔차의 크기는 독립 변수의 영향을 받으므로 아웃라이어를 찾으려면 이 영향을 제거한 표준화된 잔차를 계산해야 한다고 해. 무슨말인지 잘 모르겠지만 그래
-
-statsmodels를 이용한 표준화 잔차 계산
-
-잔차는 RegressionResult 객체의 resid 속성에 있다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">14</span>, <span class="number">6</span>))</span><br><span class="line">plt.stem(result.resid)</span><br><span class="line">plt.title(<span class="string">"각 데이터의 잔차"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>/opt/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:2: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.</code></pre><img width="826" alt="output_16_1" src="https://user-images.githubusercontent.com/59719711/81926368-c8c7a800-961c-11ea-9826-24478a19b3b4.png">
-
-
-<pre><code>표준화 잔차는 resid_pearson 속성에 있고, 보통 표준화 잔차가 2~4보다 크면 아웃라이어로 보는게 일반적이야</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">14</span>,<span class="number">6</span>))</span><br><span class="line">plt. stem(result.resid_pearson)</span><br><span class="line">plt.axhline(<span class="number">3</span>, c=<span class="string">'g'</span>, ls=<span class="string">'--'</span>)</span><br><span class="line">plt.axhline(<span class="number">-3</span>, c=<span class="string">'g'</span>, ls=<span class="string">'--'</span>)</span><br><span class="line">plt.title(<span class="string">'각 데이터의 표준화 잔차'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>/opt/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:2: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.</code></pre><img width="818" alt="output_18_1" src="https://user-images.githubusercontent.com/59719711/81926392-d41ad380-961c-11ea-852b-985bce5ea681.png">
-
-
-<h4 id="Cook’s-Distance"><a href="#Cook’s-Distance" class="headerlink" title="Cook’s Distance"></a>Cook’s Distance</h4><pre><code>회귀 분석에는 레버리지 따로, 잔차의 크기가 큰 데이터가 아웃라이어가 되고 그것을 보는 따로따로의 기능도 있지만  이 두개를 동시에 보는 방법이 바로 Cook&apos;s Distance야. 아마도 Cook이라는 사람이 만들었을 가능성이..
-
-넘어가자
-
-동시에 보는 기준이라고 생각하면 되고, 둘중 하나만 커지더라도 이 Cook&apos;s distance 값은 커지게 돼
-
-모든 데이터의 레버리지와 잔차를 동시에 보려면 plot_leverage_resid2 명령을 사용하는데, 이 명령은 x축으로 표준화 잔차의 제곱을 표시하고 y축으로 레버리지값을 표시한다. 
-
-그리고 데이터 아이디가 표시된 데이터들이 레버리지가 큰 아웃라이어 야</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">14</span>,<span class="number">6</span>))</span><br><span class="line">sm.graphics.plot_leverage_resid2(result)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">sm.graphics.influence_plot(result)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<pre><code>&lt;Figure size 1008x432 with 0 Axes&gt;</code></pre><img width="401" alt="output_21_1" src="https://user-images.githubusercontent.com/59719711/81926442-e563e000-961c-11ea-9511-4128f90f70c5.png">
-
-
-
-
-<img width="392" alt="output_21_2" src="https://user-images.githubusercontent.com/59719711/81926462-ed238480-961c-11ea-827c-5e2360d26f75.png">
-
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.graphics <span class="keyword">import</span> utils</span><br><span class="line"></span><br><span class="line">cooks_d2, pvals = influence.cooks_distance</span><br><span class="line">K = influence.k_vars</span><br><span class="line">fox_cr = <span class="number">4</span> / (len(y) - K - <span class="number">1</span>)</span><br><span class="line">idx = np.where(cooks_d2 &gt; fox_cr)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">ax = plt.subplot()</span><br><span class="line">plt.scatter(X0, y)</span><br><span class="line">plt.scatter(X0[idx], y[idx], s=<span class="number">300</span>, c=<span class="string">"r"</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">utils.annotate_axes(range(len(idx)), idx,</span><br><span class="line">                    list(zip(X0[idx], y[idx])), [(<span class="number">-20</span>, <span class="number">15</span>)] * len(idx), size=<span class="string">"small"</span>, ax=ax)</span><br><span class="line">plt.title(<span class="string">"Fox Recommendaion으로 선택한 아웃라이어"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<img width="387" alt="output_22_0" src="https://user-images.githubusercontent.com/59719711/81926491-fb71a080-961c-11ea-815d-7cab11d016fd.png">
-
-
-<h5 id="보스턴-집값-예측-문제¶"><a href="#보스턴-집값-예측-문제¶" class="headerlink" title="보스턴 집값 예측 문제¶"></a>보스턴 집값 예측 문제¶</h5><pre><code>보스턴 집값 문제에 아웃라이어를 적용해 보자. MEDV가 50인 데이터는 상식적으로 생각해도 이상한 데이터이므로 아웃라이어라고 판단할 수 있다. 나머지 데이터 중에서 폭스 추천공식을 사용하여 아웃라이어를 제외한 결과는 다음과 같다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">boston = load_boston()</span><br><span class="line"></span><br><span class="line">dfx = pd.DataFrame(boston.data, columns=boston.feature_names)</span><br><span class="line">dfy = pd.DataFrame(boston.target, columns=[<span class="string">"MEDV"</span>])</span><br><span class="line">df = pd.concat([dfx,dfy],axis=<span class="number">1</span>)</span><br><span class="line">df</span><br><span class="line"></span><br><span class="line">dfX = sm.add_constant(dfx)</span><br><span class="line">df0 = pd.concat([dfX, dfy],axis=<span class="number">1</span>)</span><br><span class="line">df0</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">pred = result_boston.predict(dfX)</span><br><span class="line"></span><br><span class="line">influence_boston = result_boston.get_influence()</span><br><span class="line">cooks_d2, pvals = influence_boston.cooks_distance</span><br><span class="line">K = influence.k_vars</span><br><span class="line">fox_cr = <span class="number">4</span> / (len(y) - K - <span class="number">1</span>)</span><br><span class="line">idx = np.where(cooks_d2 &gt; fox_cr)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># MEDV = 50 제거</span></span><br><span class="line">idx = np.hstack([idx, np.where(boston.target == <span class="number">50</span>)[<span class="number">0</span>]])</span><br><span class="line"></span><br><span class="line">ax = plt.subplot()</span><br><span class="line">plt.scatter(dfy, pred)</span><br><span class="line">plt.scatter(dfy.MEDV[idx], pred[idx], s=<span class="number">200</span>, c=<span class="string">"r"</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">utils.annotate_axes(range(len(idx)), idx,</span><br><span class="line">                    list(zip(dfy.MEDV[idx], pred[idx])), [(<span class="number">-20</span>, <span class="number">15</span>)] * len(idx), size=<span class="string">"small"</span>, ax=ax)</span><br><span class="line">plt.title(<span class="string">"보스턴 집값 데이터에서 아웃라이어"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<img width="374" alt="output_25_0" src="https://user-images.githubusercontent.com/59719711/81926518-04fb0880-961d-11ea-8ec0-70154b06352f.png">
-
-
-<pre><code>다음은 이렇게 아웃라이어를 제외한 후에 다시 회귀분석을 한 결과이다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">idx2 = list(set(range(len(dfX))).difference(idx))</span><br><span class="line">dfX = dfX.iloc[idx2, :].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">dfy = dfy.iloc[idx2, :].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">model_boston2 = sm.OLS(dfy, dfX)</span><br><span class="line">result_boston2 = model_boston2.fit()</span><br><span class="line">print(result_boston2.summary())</span><br></pre></td></tr></table></figure>
-
-<pre><code>                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                   MEDV   R-squared:                       0.812
-Model:                            OLS   Adj. R-squared:                  0.806
-Method:                 Least Squares   F-statistic:                     156.1
-Date:                Thu, 14 May 2020   Prob (F-statistic):          2.41e-161
-Time:                        15:14:52   Log-Likelihood:                -1285.2
-No. Observations:                 485   AIC:                             2598.
-Df Residuals:                     471   BIC:                             2657.
-Df Model:                          13                                         
-Covariance Type:            nonrobust                                         
-==============================================================================
-                 coef    std err          t      P&gt;|t|      [0.025      0.975]
-------------------------------------------------------------------------------
-const         18.8999      4.107      4.602      0.000      10.830      26.969
-CRIM          -0.0973      0.024     -4.025      0.000      -0.145      -0.050
-ZN             0.0278      0.010      2.651      0.008       0.007       0.048
-INDUS         -0.0274      0.046     -0.595      0.552      -0.118       0.063
-CHAS           0.9228      0.697      1.324      0.186      -0.447       2.292
-NOX           -9.4922      2.856     -3.323      0.001     -15.105      -3.879
-RM             5.0921      0.371     13.735      0.000       4.364       5.821
-AGE           -0.0305      0.010     -2.986      0.003      -0.051      -0.010
-DIS           -1.0562      0.150     -7.057      0.000      -1.350      -0.762
-RAD            0.1990      0.049      4.022      0.000       0.102       0.296
-TAX           -0.0125      0.003     -4.511      0.000      -0.018      -0.007
-PTRATIO       -0.7777      0.098     -7.955      0.000      -0.970      -0.586
-B              0.0107      0.002      5.348      0.000       0.007       0.015
-LSTAT         -0.2846      0.043     -6.639      0.000      -0.369      -0.200
-==============================================================================
-Omnibus:                       45.944   Durbin-Watson:                   1.184
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):               65.791
-Skew:                           0.679   Prob(JB):                     5.17e-15
-Kurtosis:                       4.188   Cond. No.                     1.59e+04
-==============================================================================
-
-Warnings:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-[2] The condition number is large, 1.59e+04. This might indicate that there are
-strong multicollinearity or other numerical problems.
-
-
-R-squared 의 성능점수가 올라간 것을 볼 수 있어.
-
-이렇게 어떤 특정 데이터를 가지고 회귀분석 모델링을 할 때에는 하기 전에 레버리지가 큰 데이터와 아웃라이어의 값을 이러한 절차에 의해 뽑아서 제거하고 모델링을 한다면 더욱 성능이 좋은 회귀분석 모델링을 할 수 있는거야</code></pre><h4 id="분산-분석"><a href="#분산-분석" class="headerlink" title="분산 분석"></a>분산 분석</h4><pre><code>선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residula Sum of Square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이야 ( ex.1km와 1000m)
-
-분산 분석(ANOVA: Analysis of Variance)은 종속변수의 분산과 독립변수의 분산간의 관계를 사용하여 선형회귀분석의 성능을 평가하고자 하는 방법이다. 분산 분석은 서로 다른 두 개의 선형회귀분석의 성능 비교에 응용할 수 있으며 독립변수가 카테고리 변수인 경우 각 카테고리 값에 따른 영향을 정량적으로 분석하는데도 사용할 수 있게 돼
-
-여러 수식들이 존재하지만 내가 이해를 못하겠고 결론은 다음과 같아.
-
-모형 예측치의 움직임의 크기(분산,ESS)은 종속변수의 움직임의 크기(분산,TSS)보다 클 수 없어 그리고 모형의 성능이 좋을수록 모형 예측치의 움직임의 크기는 종속변수의 움직임의 크기와 비슷해진다는 점이야</code></pre><h5 id="F-검정을-사용한-변수-중요도-비교"><a href="#F-검정을-사용한-변수-중요도-비교" class="headerlink" title="F 검정을 사용한 변수 중요도 비교"></a>F 검정을 사용한 변수 중요도 비교</h5><pre><code>F검정은 각 독립변수의 중요도를 비교하기 위해 사용할 수 있다. 방법은 전체 모형과 각 변수 하나만을 뺀 모형들의 성능을 비교하는 것인데, 이는 간접적으로 각 독립 변수의 영향력을 측정하는 것이라고 할 수 있다. 예를 들어 보스턴 집값 데이터에서 CRIM이란 변수를 뺀 모델과 전체 모델의 비교하는 검정을 하면 이 검정 결과는 CRIM변수의 중요도를 나타낸다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model_full = sm.OLS.from_formula(</span><br><span class="line">    <span class="string">"MEDV ~ CRIM + ZN + INDUS + NOX + RM + AGE + DIS + RAD + TAX + PTRATIO + B + LSTAT + CHAS"</span>, data=df0)</span><br><span class="line">model_reduced = sm.OLS.from_formula(</span><br><span class="line">    <span class="string">"MEDV ~ ZN + INDUS + NOX + RM + AGE + DIS + RAD + TAX + PTRATIO + B + LSTAT + CHAS"</span>, data=df0)</span><br><span class="line"></span><br><span class="line">sm.stats.anova_lm(model_reduced.fit(), model_full.fit())</span><br></pre></td></tr></table></figure>
-
-<pre><code>/opt/anaconda3/lib/python3.7/site-packages/scipy/stats/_distn_infrastructure.py:903: RuntimeWarning: invalid value encountered in greater
-  return (a &lt; x) &amp; (x &lt; b)
-/opt/anaconda3/lib/python3.7/site-packages/scipy/stats/_distn_infrastructure.py:903: RuntimeWarning: invalid value encountered in less
-  return (a &lt; x) &amp; (x &lt; b)
-/opt/anaconda3/lib/python3.7/site-packages/scipy/stats/_distn_infrastructure.py:1912: RuntimeWarning: invalid value encountered in less_equal
-  cond2 = cond0 &amp; (x &lt;= _a)</code></pre><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}</code></pre><p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>df_resid</th>
-      <th>ssr</th>
-      <th>df_diff</th>
-      <th>ss_diff</th>
-      <th>F</th>
-      <th>Pr(&gt;F)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>493.0</td>
-      <td>11322.004277</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>492.0</td>
-      <td>11078.784578</td>
-      <td>1.0</td>
-      <td>243.219699</td>
-      <td>10.801193</td>
-      <td>0.001087</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-<pre><code>anova_lm 명령에서는 typ 인수를 2로 지정하면 하나 하나의 변수를 뺀 축소 모형에서의 F 검정값을 한꺼번에 계산할 수 있다.</code></pre><h5 id="아노바-분석-F검정"><a href="#아노바-분석-F검정" class="headerlink" title="아노바 분석 - F검정"></a>아노바 분석 - F검정</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model = sm.OLS.from_formula(</span><br><span class="line">    <span class="string">"MEDV ~ CRIM + ZN + INDUS + NOX + RM + AGE + DIS + RAD + TAX + PTRATIO + B + LSTAT + CHAS"</span>, data=df0)</span><br><span class="line">result = model.fit()</span><br><span class="line">sm.stats.anova_lm(result, typ=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}</code></pre><p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>sum_sq</th>
-      <th>df</th>
-      <th>F</th>
-      <th>PR(&gt;F)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>CRIM</th>
-      <td>243.219699</td>
-      <td>1.0</td>
-      <td>10.801193</td>
-      <td>1.086810e-03</td>
-    </tr>
-    <tr>
-      <th>ZN</th>
-      <td>257.492979</td>
-      <td>1.0</td>
-      <td>11.435058</td>
-      <td>7.781097e-04</td>
-    </tr>
-    <tr>
-      <th>INDUS</th>
-      <td>2.516668</td>
-      <td>1.0</td>
-      <td>0.111763</td>
-      <td>7.382881e-01</td>
-    </tr>
-    <tr>
-      <th>NOX</th>
-      <td>487.155674</td>
-      <td>1.0</td>
-      <td>21.634196</td>
-      <td>4.245644e-06</td>
-    </tr>
-    <tr>
-      <th>RM</th>
-      <td>1871.324082</td>
-      <td>1.0</td>
-      <td>83.104012</td>
-      <td>1.979441e-18</td>
-    </tr>
-    <tr>
-      <th>AGE</th>
-      <td>0.061834</td>
-      <td>1.0</td>
-      <td>0.002746</td>
-      <td>9.582293e-01</td>
-    </tr>
-    <tr>
-      <th>DIS</th>
-      <td>1232.412493</td>
-      <td>1.0</td>
-      <td>54.730457</td>
-      <td>6.013491e-13</td>
-    </tr>
-    <tr>
-      <th>RAD</th>
-      <td>479.153926</td>
-      <td>1.0</td>
-      <td>21.278844</td>
-      <td>5.070529e-06</td>
-    </tr>
-    <tr>
-      <th>TAX</th>
-      <td>242.257440</td>
-      <td>1.0</td>
-      <td>10.758460</td>
-      <td>1.111637e-03</td>
-    </tr>
-    <tr>
-      <th>PTRATIO</th>
-      <td>1194.233533</td>
-      <td>1.0</td>
-      <td>53.034960</td>
-      <td>1.308835e-12</td>
-    </tr>
-    <tr>
-      <th>B</th>
-      <td>270.634230</td>
-      <td>1.0</td>
-      <td>12.018651</td>
-      <td>5.728592e-04</td>
-    </tr>
-    <tr>
-      <th>LSTAT</th>
-      <td>2410.838689</td>
-      <td>1.0</td>
-      <td>107.063426</td>
-      <td>7.776912e-23</td>
-    </tr>
-    <tr>
-      <th>CHAS</th>
-      <td>218.970357</td>
-      <td>1.0</td>
-      <td>9.724299</td>
-      <td>1.925030e-03</td>
-    </tr>
-    <tr>
-      <th>Residual</th>
-      <td>11078.784578</td>
-      <td>492.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-<pre><code>각각의 독립변수들의 전체와 비교했을 때 얼마만큼 중요도를 가지는데 정량적으로 나온 결과값이야. 여기서 주목해야할 부분은 PR&gt;(&gt;F)부분으로 summary에서도 나오는 p-value값을 디테일하게 풀어놓은 값이고 예를 들어 LSTAT, RM의 경우 10의 -23승, 10의 -18승으로 수치가 제일 낮은걸 알 수 있어. 그러면 이 2가지의 독립변수가 종속변수에 가장 큰 영향을 미쳤다고 해석하면 되는거야
-표의 F값을 보고도 알 수 있지만 F값은 확률의 의미는 없기 때문에 단순 순위를 매기는거 라면 결정할 수 있지만 만약 귀무가설/대립가설을 accept 하냐 reject 하냐의 확률적 의미를 판단한다면 F값만으로는 불가능해</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h5 id="범주형을-사용한-비선형성"><a href="#범주형을-사용한-비선형성" class="headerlink" title="범주형을 사용한 비선형성"></a>범주형을 사용한 비선형성</h5><pre><code>독립변수의 비선형성을 포착하는 또 다른 방법 중 하나는 강제로 범주형 값으로 만드는 것이다. 범주형 값이 되면서 독립변수의 오차가 생기지만 이로 인한 오차보다 비선형성으로 얻을 수 있는 이익이 클 수도 있다.
-
-보스턴 집값 데이터에서 종속변수와 RM 변수의 관계는 선형에 가깝지만 방의 갯수가 아주 작아지거나 아주 커지면 선형모형에서 벗어난다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">14</span>,<span class="number">6</span>))</span><br><span class="line">sns.scatterplot(x=<span class="string">"RM"</span>, y=<span class="string">"MEDV"</span>, data=df0, s=<span class="number">60</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<img width="836" alt="output_39_0" src="https://user-images.githubusercontent.com/59719711/81926554-17754200-961d-11ea-9ea7-69b37349b510.png">
-
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model_rm = sm.OLS.from_formula(<span class="string">'MEDV ~ RM'</span>, data=df0)</span><br><span class="line">result_rm = model_rm.fit()</span><br><span class="line">print(result_rm.summary())</span><br></pre></td></tr></table></figure>
-
-<pre><code>                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                   MEDV   R-squared:                       0.484
-Model:                            OLS   Adj. R-squared:                  0.483
-Method:                 Least Squares   F-statistic:                     471.8
-Date:                Thu, 14 May 2020   Prob (F-statistic):           2.49e-74
-Time:                        19:28:18   Log-Likelihood:                -1673.1
-No. Observations:                 506   AIC:                             3350.
-Df Residuals:                     504   BIC:                             3359.
-Df Model:                           1                                         
-Covariance Type:            nonrobust                                         
-==============================================================================
-                 coef    std err          t      P&gt;|t|      [0.025      0.975]
-------------------------------------------------------------------------------
-Intercept    -34.6706      2.650    -13.084      0.000     -39.877     -29.465
-RM             9.1021      0.419     21.722      0.000       8.279       9.925
-==============================================================================
-Omnibus:                      102.585   Durbin-Watson:                   0.684
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              612.449
-Skew:                           0.726   Prob(JB):                    1.02e-133
-Kurtosis:                       8.190   Cond. No.                         58.4
-==============================================================================
-
-Warnings:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-
-
-이렇게 RM 데이터 전체를 놓고 보면 종속변수 y와 아주 큰 상관관계가 있는것으로 보이지만 위에 그래프에서 봤듯이, 방의 갯수가 아주 적거나, 많으면 선형성을 보이지 않는 구간에 대해 조금 더 디테일하게 상관관게를 보고 싶다면 RM 데이터를 강제로 범주화 시켜 RM 데이터가 가지는 비선형성을 잡을 수 있다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rooms = np.arange(<span class="number">3</span>,<span class="number">10</span>)</span><br><span class="line">labels = [str(r) <span class="keyword">for</span> r <span class="keyword">in</span> rooms[:<span class="number">-1</span>]]</span><br><span class="line">df0[<span class="string">'CAT_RM'</span>] = np.round(df[<span class="string">'RM'</span>])</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">14</span>,<span class="number">6</span>))</span><br><span class="line">sns.barplot(<span class="string">'CAT_RM'</span>, <span class="string">'MEDV'</span>, data=df0)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<img width="836" alt="output_42_0" src="https://user-images.githubusercontent.com/59719711/81926587-222fd700-961d-11ea-88fb-a5ff2aec6b90.png">
-
-
-<pre><code>이렇게 하면 RM 변수으로 인한 종속변수의 변화를 비선형 상수항으로 모형화 할 수 있다. 선형모형보다 성능이 향상된 것을 볼 수 있다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model_rm2 = sm.OLS.from_formula(<span class="string">"MEDV ~ C(np.round(RM))"</span>, data=df0)</span><br><span class="line">result_rm2 = model_rm2.fit()</span><br><span class="line">print(result_rm2.summary())</span><br></pre></td></tr></table></figure>
-
-<pre><code>                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                   MEDV   R-squared:                       0.537
-Model:                            OLS   Adj. R-squared:                  0.532
-Method:                 Least Squares   F-statistic:                     115.8
-Date:                Thu, 14 May 2020   Prob (F-statistic):           3.57e-81
-Time:                        19:33:48   Log-Likelihood:                -1645.6
-No. Observations:                 506   AIC:                             3303.
-Df Residuals:                     500   BIC:                             3329.
-Df Model:                           5                                         
-Covariance Type:            nonrobust                                         
-==========================================================================================
-                             coef    std err          t      P&gt;|t|      [0.025      0.975]
-------------------------------------------------------------------------------------------
-Intercept                 17.0200      2.814      6.049      0.000      11.492      22.548
-C(np.round(RM))[T.5.0]    -2.0741      2.998     -0.692      0.489      -7.964       3.816
-C(np.round(RM))[T.6.0]     2.3460      2.836      0.827      0.409      -3.226       7.918
-C(np.round(RM))[T.7.0]    11.0272      2.869      3.843      0.000       5.389      16.665
-C(np.round(RM))[T.8.0]    28.5425      3.093      9.228      0.000      22.466      34.619
-C(np.round(RM))[T.9.0]    23.6133      4.595      5.139      0.000      14.586      32.641
-==============================================================================
-Omnibus:                       81.744   Durbin-Watson:                   0.799
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              467.887
-Skew:                           0.542   Prob(JB):                    2.51e-102
-Kurtosis:                       7.584   Cond. No.                         31.1
-==============================================================================
-
-Warnings:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre><h5 id="시간-독립변수의-변형"><a href="#시간-독립변수의-변형" class="headerlink" title="시간 독립변수의 변형"></a>시간 독립변수의 변형</h5><pre><code>독립변수가 시간인 경우에는 특정 시점에서 경과된 시간값으로 변형해야 한다. 일간 전기 사용량 데이터를 예로 들어 설명한다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = sm.datasets.get_rdataset(<span class="string">"elecdaily"</span>, package=<span class="string">"fpp2"</span>)</span><br><span class="line"></span><br><span class="line">df_elec = data.data.drop(columns=[<span class="string">"WorkDay"</span>, <span class="string">"Temperature"</span>])</span><br><span class="line">df_elec[<span class="string">"Date"</span>] = pd.date_range(<span class="string">"2014-1-1"</span>, <span class="string">"2014-12-31"</span>)</span><br><span class="line">df_elec.tail()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}</code></pre><p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Demand</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>360</th>
-      <td>173.727990</td>
-      <td>2014-12-27</td>
-    </tr>
-    <tr>
-      <th>361</th>
-      <td>188.512817</td>
-      <td>2014-12-28</td>
-    </tr>
-    <tr>
-      <th>362</th>
-      <td>191.273009</td>
-      <td>2014-12-29</td>
-    </tr>
-    <tr>
-      <th>363</th>
-      <td>186.240144</td>
-      <td>2014-12-30</td>
-    </tr>
-    <tr>
-      <th>364</th>
-      <td>186.370181</td>
-      <td>2014-12-31</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-<pre><code>파이썬 datetime 자료형은 toordinal 명령으로 특정 시점으로부터 경과한 시간의 일단위 값을 구하거나 timestamp 메서드로 초단위 값을 구할 수 있다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime <span class="keyword">as</span> dt</span><br><span class="line"></span><br><span class="line">df_elec[<span class="string">"Ordinal"</span>] = df_elec.Date.map(dt.datetime.toordinal)</span><br><span class="line">df_elec[<span class="string">"Timestamp"</span>] = df_elec.Date.map(dt.datetime.timestamp)</span><br><span class="line">df_elec.tail()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}</code></pre><p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Demand</th>
-      <th>Date</th>
-      <th>Ordinal</th>
-      <th>Timestamp</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>360</th>
-      <td>173.727990</td>
-      <td>2014-12-27</td>
-      <td>735594</td>
-      <td>1.419606e+09</td>
-    </tr>
-    <tr>
-      <th>361</th>
-      <td>188.512817</td>
-      <td>2014-12-28</td>
-      <td>735595</td>
-      <td>1.419692e+09</td>
-    </tr>
-    <tr>
-      <th>362</th>
-      <td>191.273009</td>
-      <td>2014-12-29</td>
-      <td>735596</td>
-      <td>1.419779e+09</td>
-    </tr>
-    <tr>
-      <th>363</th>
-      <td>186.240144</td>
-      <td>2014-12-30</td>
-      <td>735597</td>
-      <td>1.419865e+09</td>
-    </tr>
-    <tr>
-      <th>364</th>
-      <td>186.370181</td>
-      <td>2014-12-31</td>
-      <td>735598</td>
-      <td>1.419952e+09</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-<pre><code>여기에서는 일단위 시간 값을 사용하여 회귀분석을 한다. 시간 값의 경우 크기가 크므로 반드시 스케일링을 해 주어야 한다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model5 = sm.OLS.from_formula(<span class="string">"Demand ~ scale(Ordinal)"</span>, data=df_elec)</span><br><span class="line">result5 = model5.fit()</span><br><span class="line">print(result5.summary())</span><br></pre></td></tr></table></figure>
-
-<pre><code>                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                 Demand   R-squared:                       0.031
-Model:                            OLS   Adj. R-squared:                  0.028
-Method:                 Least Squares   F-statistic:                     11.58
-Date:                Thu, 14 May 2020   Prob (F-statistic):           0.000739
-Time:                        19:35:40   Log-Likelihood:                -1709.7
-No. Observations:                 365   AIC:                             3423.
-Df Residuals:                     363   BIC:                             3431.
-Df Model:                           1                                         
-Covariance Type:            nonrobust                                         
-==================================================================================
-                     coef    std err          t      P&gt;|t|      [0.025      0.975]
-----------------------------------------------------------------------------------
-Intercept        221.2775      1.374    160.997      0.000     218.575     223.980
-scale(Ordinal)    -4.6779      1.374     -3.404      0.001      -7.381      -1.975
-==============================================================================
-Omnibus:                       43.105   Durbin-Watson:                   0.677
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):               96.485
-Skew:                           0.614   Prob(JB):                     1.12e-21
-Kurtosis:                       5.199   Cond. No.                         1.00
-==============================================================================
-
-Warnings:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-
-
-하지만 시간 독립변수는 이 외에더 다양한 특징들을 숨기고 있다. 예들 들어 연도, 월, 일, 요일 데이터를 별도의 독립변수로 분리하거나 한 달 내에서 몇번째 날짜인지 월의 시작 또는 끝인지를 나타내는 값은 모두 특징값이 될 수 있다. 판다스에서는 dt 특수 연산자를 사용하여 이러한 값을 구할 수 있다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">df_elec[<span class="string">"Year"</span>] = df_elec[<span class="string">'Date'</span>].dt.year</span><br><span class="line">df_elec[<span class="string">"Month"</span>] = df_elec.Date.dt.month</span><br><span class="line">df_elec[<span class="string">"DayOfYear"</span>] = df_elec.Date.dt.dayofyear</span><br><span class="line">df_elec[<span class="string">"DayOfMonth"</span>] = df_elec.Date.dt.daysinmonth</span><br><span class="line">df_elec[<span class="string">"DayOfWeek"</span>] = df_elec.Date.dt.dayofweek</span><br><span class="line">df_elec[<span class="string">"WeekOfYear"</span>] = df_elec.Date.dt.weekofyear</span><br><span class="line">df_elec[<span class="string">"Weekday"</span>] = df_elec.Date.dt.weekday</span><br><span class="line">df_elec[<span class="string">"IsMonthStart"</span>] = df_elec.Date.dt.is_month_start</span><br><span class="line">df_elec[<span class="string">"IsMonthEnd"</span>] = df_elec.Date.dt.is_month_end</span><br><span class="line">df_elec.tail()</span><br></pre></td></tr></table></figure>
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}</code></pre><p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Demand</th>
-      <th>Date</th>
-      <th>Ordinal</th>
-      <th>Timestamp</th>
-      <th>Year</th>
-      <th>Month</th>
-      <th>DayOfYear</th>
-      <th>DayOfMonth</th>
-      <th>DayOfWeek</th>
-      <th>WeekOfYear</th>
-      <th>Weekday</th>
-      <th>IsMonthStart</th>
-      <th>IsMonthEnd</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>360</th>
-      <td>173.727990</td>
-      <td>2014-12-27</td>
-      <td>735594</td>
-      <td>1.419606e+09</td>
-      <td>2014</td>
-      <td>12</td>
-      <td>361</td>
-      <td>31</td>
-      <td>5</td>
-      <td>52</td>
-      <td>5</td>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>361</th>
-      <td>188.512817</td>
-      <td>2014-12-28</td>
-      <td>735595</td>
-      <td>1.419692e+09</td>
-      <td>2014</td>
-      <td>12</td>
-      <td>362</td>
-      <td>31</td>
-      <td>6</td>
-      <td>52</td>
-      <td>6</td>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>362</th>
-      <td>191.273009</td>
-      <td>2014-12-29</td>
-      <td>735596</td>
-      <td>1.419779e+09</td>
-      <td>2014</td>
-      <td>12</td>
-      <td>363</td>
-      <td>31</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>363</th>
-      <td>186.240144</td>
-      <td>2014-12-30</td>
-      <td>735597</td>
-      <td>1.419865e+09</td>
-      <td>2014</td>
-      <td>12</td>
-      <td>364</td>
-      <td>31</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>364</th>
-      <td>186.370181</td>
-      <td>2014-12-31</td>
-      <td>735598</td>
-      <td>1.419952e+09</td>
-      <td>2014</td>
-      <td>12</td>
-      <td>365</td>
-      <td>31</td>
-      <td>2</td>
-      <td>1</td>
-      <td>2</td>
-      <td>False</td>
-      <td>True</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-<pre><code>이렇게 추가적인 특징값을 이용하여 구한 모형은 성능이 향상된다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">feature_names = df_elec.columns.tolist()</span><br><span class="line">feature_names.remove(<span class="string">"Demand"</span>)</span><br><span class="line">feature_names.remove(<span class="string">"Date"</span>)</span><br><span class="line"></span><br><span class="line">formula = <span class="string">"""</span></span><br><span class="line"><span class="string">Demand ~ scale(Ordinal) + C(Month) + DayOfYear + </span></span><br><span class="line"><span class="string">         C(DayOfMonth) + C(DayOfWeek) + C(Weekday) + C(IsMonthStart) + C(IsMonthEnd)</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">model6 = sm.OLS.from_formula(formula, data=df_elec)</span><br><span class="line">result6 = model6.fit()</span><br><span class="line">print(result6.summary())</span><br></pre></td></tr></table></figure>
-
-<pre><code>                            OLS Regression Results                            
-==============================================================================
-Dep. Variable:                 Demand   R-squared:                       0.537
-Model:                            OLS   Adj. R-squared:                  0.511
-Method:                 Least Squares   F-statistic:                     19.98
-Date:                Thu, 14 May 2020   Prob (F-statistic):           4.74e-46
-Time:                        19:37:49   Log-Likelihood:                -1574.8
-No. Observations:                 365   AIC:                             3192.
-Df Residuals:                     344   BIC:                             3273.
-Df Model:                          20                                         
-Covariance Type:            nonrobust                                         
-===========================================================================================
-                              coef    std err          t      P&gt;|t|      [0.025      0.975]
--------------------------------------------------------------------------------------------
-Intercept                  58.6105      2.423     24.188      0.000      53.844      63.377
-C(Month)[T.2]              14.5730      4.587      3.177      0.002       5.551      23.595
-C(Month)[T.3]              -1.2369      8.663     -0.143      0.887     -18.276      15.802
-C(Month)[T.4]             -29.1875     10.239     -2.851      0.005     -49.326      -9.049
-C(Month)[T.5]              23.4037     15.493      1.511      0.132      -7.069      53.876
-C(Month)[T.6]              11.3667      3.758      3.024      0.003       3.974      18.759
-C(Month)[T.7]              64.8095     22.750      2.849      0.005      20.063     109.556
-C(Month)[T.8]              66.5692     26.490      2.513      0.012      14.467     118.671
-C(Month)[T.9]              22.7687      9.491      2.399      0.017       4.100      41.437
-C(Month)[T.10]             59.0491     33.895      1.742      0.082      -7.619     125.717
-C(Month)[T.11]             33.4276     16.778      1.992      0.047       0.427      66.429
-C(Month)[T.12]             72.2523     41.334      1.748      0.081      -9.047     153.552
-C(DayOfMonth)[T.30]        38.3755     13.530      2.836      0.005      11.763      64.988
-C(DayOfMonth)[T.31]         5.6620      7.806      0.725      0.469      -9.691      21.015
-C(DayOfWeek)[T.1]           3.4766      1.829      1.900      0.058      -0.121       7.075
-C(DayOfWeek)[T.2]           1.5756      1.821      0.865      0.387      -2.006       5.157
-C(DayOfWeek)[T.3]           2.8568      1.831      1.560      0.120      -0.745       6.459
-C(DayOfWeek)[T.4]           0.8832      1.831      0.482      0.630      -2.719       4.485
-C(DayOfWeek)[T.5]         -12.8982      1.831     -7.045      0.000     -16.499      -9.297
-C(DayOfWeek)[T.6]         -16.4623      1.829     -8.999      0.000     -20.060     -12.864
-C(Weekday)[T.1]             3.4766      1.829      1.900      0.058      -0.121       7.075
-C(Weekday)[T.2]             1.5756      1.821      0.865      0.387      -2.006       5.157
-C(Weekday)[T.3]             2.8568      1.831      1.560      0.120      -0.745       6.459
-C(Weekday)[T.4]             0.8832      1.831      0.482      0.630      -2.719       4.485
-C(Weekday)[T.5]           -12.8982      1.831     -7.045      0.000     -16.499      -9.297
-C(Weekday)[T.6]           -16.4623      1.829     -8.999      0.000     -20.060     -12.864
-C(IsMonthStart)[T.True]     1.2012      5.781      0.208      0.836     -10.169      12.571
-C(IsMonthEnd)[T.True]       4.7608      5.781      0.824      0.411      -6.609      16.131
-scale(Ordinal)           -101.7884      4.209    -24.182      0.000    -110.068     -93.509
-DayOfYear                   0.6769      0.085      7.926      0.000       0.509       0.845
-==============================================================================
-Omnibus:                      150.460   Durbin-Watson:                   0.577
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1586.415
-Skew:                           1.422   Prob(JB):                         0.00
-Kurtosis:                      12.809   Cond. No.                     1.05e+18
-==============================================================================
-
-Warnings:
-[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-[2] The smallest eigenvalue is 1.49e-29. This might indicate that there are
-strong multicollinearity problems or that the design matrix is singular.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2466,7 +1493,7 @@ strong multicollinearity problems or that the design matrix is singular.</code><
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
