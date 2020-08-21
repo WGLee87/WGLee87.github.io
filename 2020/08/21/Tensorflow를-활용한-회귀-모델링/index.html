@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Tensorflow를 활용한 회귀 모델링 - Geony&#039;s Tech Blog</title><meta description="자동차 연비 예측하기12345678import pathlibimport matplotlib.pyplot as pltimport seaborn as snsimport tensorflow as tffrom tensorflow import kerasfrom tensorflow.keras import layersprint(tf.__version__)  2.4.0-"><meta property="og:type" content="blog"><meta property="og:title" content="Geony&#039;s Tech Blog"><meta property="og:url" content="http://wglee87.github.io/2020/08/21/Tensorflow%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%9A%8C%EA%B7%80-%EB%AA%A8%EB%8D%B8%EB%A7%81/"><meta property="og:site_name" content="Geony&#039;s Tech Blog"><meta property="og:description" content="자동차 연비 예측하기12345678import pathlibimport matplotlib.pyplot as pltimport seaborn as snsimport tensorflow as tffrom tensorflow import kerasfrom tensorflow.keras import layersprint(tf.__version__)  2.4.0-"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://user-images.githubusercontent.com/59719711/90860004-345fa500-e3c4-11ea-955f-87703c4be123.png"><meta property="og:image" content="https://user-images.githubusercontent.com/59719711/90860062-50634680-e3c4-11ea-8688-798c5f6557e7.png"><meta property="og:image" content="https://user-images.githubusercontent.com/59719711/90860211-94eee200-e3c4-11ea-8673-4330f5325b81.png"><meta property="og:image" content="https://user-images.githubusercontent.com/59719711/90860253-a33cfe00-e3c4-11ea-8a43-e8074c908d64.png"><meta property="og:image" content="https://user-images.githubusercontent.com/59719711/90860297-b780fb00-e3c4-11ea-8c8a-709eb6725538.png"><meta property="og:image" content="https://user-images.githubusercontent.com/59719711/90860330-c5368080-e3c4-11ea-9a6c-79c1fd8fd89c.png"><meta property="article:published_time" content="2020-08-21T06:29:24.000Z"><meta property="article:modified_time" content="2020-08-21T06:41:43.294Z"><meta property="article:author" content="wglee87"><meta property="article:tag" content="data_analysis"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://user-images.githubusercontent.com/59719711/90860004-345fa500-e3c4-11ea-955f-87703c4be123.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://wglee87.github.io/2020/08/21/Tensorflow%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%9A%8C%EA%B7%80-%EB%AA%A8%EB%8D%B8%EB%A7%81/"},"headline":"Geony's Tech Blog","image":["https://user-images.githubusercontent.com/59719711/90860004-345fa500-e3c4-11ea-955f-87703c4be123.png","https://user-images.githubusercontent.com/59719711/90860062-50634680-e3c4-11ea-8688-798c5f6557e7.png","https://user-images.githubusercontent.com/59719711/90860211-94eee200-e3c4-11ea-8673-4330f5325b81.png","https://user-images.githubusercontent.com/59719711/90860253-a33cfe00-e3c4-11ea-8a43-e8074c908d64.png","https://user-images.githubusercontent.com/59719711/90860297-b780fb00-e3c4-11ea-8c8a-709eb6725538.png","https://user-images.githubusercontent.com/59719711/90860330-c5368080-e3c4-11ea-9a6c-79c1fd8fd89c.png"],"datePublished":"2020-08-21T06:29:24.000Z","dateModified":"2020-08-21T06:41:43.294Z","author":{"@type":"Person","name":"WGLee87"},"description":"자동차 연비 예측하기12345678import pathlibimport matplotlib.pyplot as pltimport seaborn as snsimport tensorflow as tffrom tensorflow import kerasfrom tensorflow.keras import layersprint(tf.__version__)  2.4.0-"}</script><link rel="canonical" href="http://wglee87.github.io/2020/08/21/Tensorflow%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%9A%8C%EA%B7%80-%EB%AA%A8%EB%8D%B8%EB%A7%81/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/" alt="Geony&#039;s Tech Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="/null">Download on GitHub</a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-08-21T06:29:24.000Z" title="2020-08-21T06:29:24.000Z">2020-08-21</time><span class="level-item">9 minutes read (About 1383 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">Tensorflow를 활용한 회귀 모델링</h1><div class="content"><h6 id="자동차-연비-예측하기"><a href="#자동차-연비-예측하기" class="headerlink" title="자동차 연비 예측하기"></a>자동차 연비 예측하기</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pathlib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers</span><br><span class="line"></span><br><span class="line">print(tf.__version__)</span><br></pre></td></tr></table></figure>
+
+<pre><code>2.4.0-dev20200724</code></pre><h6 id="Auto-MPG-데이터셋"><a href="#Auto-MPG-데이터셋" class="headerlink" title="Auto MPG 데이터셋"></a>Auto MPG 데이터셋</h6><pre><code>UCI 머신러닝 저장소에서 다운로드를 받자!</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dataset_path = keras.utils.get_file(<span class="string">"auto-mpg.data"</span>, <span class="string">"http://archive.ics.uci.edu/ml/\</span></span><br><span class="line"><span class="string">                                    machine-learning-databases/auto-mpg/auto-mpg.data"</span>)</span><br><span class="line">dataset_path</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&apos;/Users/wglee/.keras/datasets/auto-mpg.data&apos;</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 데이터 불러오기</span></span><br><span class="line">column_names = [<span class="string">'MPG'</span>, <span class="string">'Cylinders'</span>, <span class="string">'Displacement'</span>, <span class="string">'Horsepwer'</span>, <span class="string">'Weight'</span>, <span class="string">'Acceleration'</span>,\</span><br><span class="line">               <span class="string">'Model_year'</span>, <span class="string">'Origin'</span>]</span><br><span class="line"></span><br><span class="line">dataset = pd.read_csv(dataset_path, names=column_names, na_values=<span class="string">'?'</span>, comment=<span class="string">'\t'</span>, sep=<span class="string">' '</span>,\</span><br><span class="line">                     skipinitialspace=<span class="literal">True</span>)</span><br><span class="line">df = dataset.copy()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.tail(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MPG</th>
+      <th>Cylinders</th>
+      <th>Displacement</th>
+      <th>Horsepwer</th>
+      <th>Weight</th>
+      <th>Acceleration</th>
+      <th>Model_year</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>396</th>
+      <td>28.0</td>
+      <td>4</td>
+      <td>120.0</td>
+      <td>79.0</td>
+      <td>2625.0</td>
+      <td>18.6</td>
+      <td>82</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>397</th>
+      <td>31.0</td>
+      <td>4</td>
+      <td>119.0</td>
+      <td>82.0</td>
+      <td>2720.0</td>
+      <td>19.4</td>
+      <td>82</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'Origin'</span>].unique()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([1, 3, 2])
+
+
+
+null값 확인 결과 6개의 데이터가 누락된 것을 확인하였고 제거 정제 작업을 하였습니다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.isnull().sum()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>MPG             0
+Cylinders       0
+Displacement    0
+Horsepwer       6
+Weight          0
+Acceleration    0
+Model_year      0
+Origin          0
+dtype: int64</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.dropna(inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> missingno <span class="keyword">as</span> msno</span><br><span class="line">msno.matrix(df, figsize=(<span class="number">8</span>, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7faaa5864f10&gt;</code></pre><img width="512" alt="output_10_1" src="https://user-images.githubusercontent.com/59719711/90860004-345fa500-e3c4-11ea-955f-87703c4be123.png">
+
+
+<pre><code>&quot;Origin&quot; 열은 수치형이 아니고 범주형이므로 원-핫 인코딩(one-hot encoding)으로 변환</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">origin = df.pop(<span class="string">'Origin'</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'USA'</span>] = (origin == <span class="number">1</span>) * <span class="number">1.0</span></span><br><span class="line">df[<span class="string">'Europe'</span>] = (origin == <span class="number">2</span>) * <span class="number">2.0</span></span><br><span class="line">df[<span class="string">'Japan'</span>] = (origin == <span class="number">3</span>) * <span class="number">3.0</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.tail(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MPG</th>
+      <th>Cylinders</th>
+      <th>Displacement</th>
+      <th>Horsepwer</th>
+      <th>Weight</th>
+      <th>Acceleration</th>
+      <th>Model_year</th>
+      <th>USA</th>
+      <th>Europe</th>
+      <th>Japan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>396</th>
+      <td>28.0</td>
+      <td>4</td>
+      <td>120.0</td>
+      <td>79.0</td>
+      <td>2625.0</td>
+      <td>18.6</td>
+      <td>82</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>397</th>
+      <td>31.0</td>
+      <td>4</td>
+      <td>119.0</td>
+      <td>82.0</td>
+      <td>2720.0</td>
+      <td>19.4</td>
+      <td>82</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<pre><code>데이터셋 분리 (train, test)</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train_df = df.sample(frac=<span class="number">0.7</span>, random_state=<span class="number">0</span>)</span><br><span class="line">test_df = df.drop(train_df.index)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">len(train_df)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>274
+
+
+
+데이터 EDA를 통해 데이터의 분포 및 통계치를 확인합니다</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sns.pairplot(train_df[[<span class="string">'MPG'</span>,<span class="string">'Cylinders'</span>,<span class="string">'Displacement'</span>,<span class="string">'Weight'</span>]], diag_kind=<span class="string">'kde'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+
+<img width="746" alt="output_19_0" src="https://user-images.githubusercontent.com/59719711/90860062-50634680-e3c4-11ea-8688-798c5f6557e7.png">
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_stats = train_df.describe()</span><br><span class="line"><span class="comment"># train_stats.pop("MPG")</span></span><br><span class="line">train_stats = train_stats.T <span class="comment">#transpose</span></span><br><span class="line">train_stats</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>MPG</th>
+      <td>274.0</td>
+      <td>23.323358</td>
+      <td>7.643458</td>
+      <td>10.0</td>
+      <td>17.0</td>
+      <td>22.0</td>
+      <td>29.000</td>
+      <td>46.6</td>
+    </tr>
+    <tr>
+      <th>Cylinders</th>
+      <td>274.0</td>
+      <td>5.467153</td>
+      <td>1.690530</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>8.000</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>Displacement</th>
+      <td>274.0</td>
+      <td>193.846715</td>
+      <td>102.402201</td>
+      <td>68.0</td>
+      <td>105.0</td>
+      <td>151.0</td>
+      <td>260.000</td>
+      <td>455.0</td>
+    </tr>
+    <tr>
+      <th>Horsepwer</th>
+      <td>274.0</td>
+      <td>104.135036</td>
+      <td>37.281034</td>
+      <td>46.0</td>
+      <td>76.0</td>
+      <td>93.0</td>
+      <td>128.000</td>
+      <td>225.0</td>
+    </tr>
+    <tr>
+      <th>Weight</th>
+      <td>274.0</td>
+      <td>2976.879562</td>
+      <td>829.860536</td>
+      <td>1649.0</td>
+      <td>2250.5</td>
+      <td>2822.5</td>
+      <td>3573.000</td>
+      <td>4997.0</td>
+    </tr>
+    <tr>
+      <th>Acceleration</th>
+      <td>274.0</td>
+      <td>15.590876</td>
+      <td>2.714719</td>
+      <td>8.0</td>
+      <td>14.0</td>
+      <td>15.5</td>
+      <td>17.275</td>
+      <td>24.8</td>
+    </tr>
+    <tr>
+      <th>Model_year</th>
+      <td>274.0</td>
+      <td>75.934307</td>
+      <td>3.685839</td>
+      <td>70.0</td>
+      <td>73.0</td>
+      <td>76.0</td>
+      <td>79.000</td>
+      <td>82.0</td>
+    </tr>
+    <tr>
+      <th>USA</th>
+      <td>274.0</td>
+      <td>0.635036</td>
+      <td>0.482301</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.000</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Europe</th>
+      <td>274.0</td>
+      <td>0.335766</td>
+      <td>0.748893</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>Japan</th>
+      <td>274.0</td>
+      <td>0.591241</td>
+      <td>1.195564</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<pre><code>이번에는 train, test 분리가 아니라 feature와 label를 분리시켜 줍니다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train_labels = train_df[<span class="string">'MPG'</span>]</span><br><span class="line">test_labels = test_df[<span class="string">'MPG'</span>]</span><br></pre></td></tr></table></figure>
+
+<h6 id="데이터-정규화"><a href="#데이터-정규화" class="headerlink" title="데이터 정규화"></a>데이터 정규화</h6><pre><code>feature의 크기와 범위가 다르면 정규화(normalization)를 하는 것이 권장됩니다. 정규화를 하지 않아도 모델링이 가능하지만 훈련시키기 어렵고 입력 단위에 의존적인 모델이 만들어지게 됩니다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># # 데이터 정규화</span></span><br><span class="line"><span class="comment"># from sklearn.preprocessing import StandardScaler</span></span><br><span class="line"><span class="comment"># scaler = StandardScaler()</span></span><br><span class="line"><span class="comment"># train_df = scaler.fit_transform(train_df)</span></span><br><span class="line"><span class="comment"># test_df = scaler.fit_transform(test_df)</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">norm</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (x - train_stats[<span class="string">'mean'</span>]) / train_stats[<span class="string">'std'</span>]</span><br><span class="line">normed_train_data = norm(train_df)</span><br><span class="line">normed_test_data = norm(test_df)</span><br></pre></td></tr></table></figure>
+
+<h6 id="모델링"><a href="#모델링" class="headerlink" title="모델링"></a>모델링</h6><pre><code>모델을 구성해 보죠. 여기에서는 두 개의 완전 연결(densely connected) 은닉층으로 Sequential 모델을 만들겠습니다. 출력 층은 하나의 연속적인 값을 반환합니다. 나중에 두 번째 모델을 만들기 쉽도록 build_model 함수로 모델 구성 단계를 감싸겠습니다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 모델링</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_model</span><span class="params">()</span>:</span></span><br><span class="line">    model = keras.Sequential([</span><br><span class="line">        layers.Dense(<span class="number">128</span>, activation=<span class="string">'relu'</span>, input_shape=[len(train_df.keys())]),</span><br><span class="line">        layers.Dense(<span class="number">64</span>, activation=<span class="string">'relu'</span>),</span><br><span class="line">        layers.Dense(<span class="number">1</span>)</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line">    optimizer = tf.keras.optimizers.RMSprop(<span class="number">0.001</span>)</span><br><span class="line"></span><br><span class="line">    model.compile(loss=<span class="string">'mse'</span>,</span><br><span class="line">                optimizer=optimizer,</span><br><span class="line">                metrics=[<span class="string">'mae'</span>, <span class="string">'mse'</span>])</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = build_model()</span><br></pre></td></tr></table></figure>
+
+<h6 id="모델-확인"><a href="#모델-확인" class="headerlink" title="모델 확인"></a>모델 확인</h6><pre><code>.summary() 메서드를 사용하여 모델의 간단한 정보를 출력해줍니다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(model.summary())</span><br></pre></td></tr></table></figure>
+
+<pre><code>Model: &quot;sequential_15&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense_45 (Dense)             (None, 128)               1408      
+_________________________________________________________________
+dense_46 (Dense)             (None, 64)                8256      
+_________________________________________________________________
+dense_47 (Dense)             (None, 1)                 65        
+=================================================================
+Total params: 9,729
+Trainable params: 9,729
+Non-trainable params: 0
+_________________________________________________________________
+None
+
+
+모델을 한번 실행해 보죠. training 세트에서 10개의 샘플을 하나의 배치로 만들어 model_predict 메서드를 호출해 보겠습니다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">example_batch = normed_train_data[:<span class="number">10</span>]</span><br><span class="line">example_result = model.predict(example_batch)</span><br><span class="line">example_result</span><br></pre></td></tr></table></figure>
+
+<pre><code>WARNING:tensorflow:5 out of the last 15 calls to &lt;function Model.make_predict_function.&lt;locals&gt;.predict_function at 0x7faa9a8f0200&gt; triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/tutorials/customization/performance#python_or_tensor_args and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+
+
+
+
+
+array([[-0.03285253],
+       [-0.01362434],
+       [-0.48285854],
+       [ 0.01581845],
+       [ 0.08219826],
+       [ 0.08362657],
+       [ 0.15519306],
+       [ 0.28581452],
+       [ 0.07680693],
+       [ 0.01200353]], dtype=float32)</code></pre><h6 id="모델-훈련"><a href="#모델-훈련" class="headerlink" title="모델 훈련"></a>모델 훈련</h6><pre><code>에포크가 끝날 때마다 점(.)을 출력해 훈련 진행 과정을 표시합니다.</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrintDot</span><span class="params">(keras.callbacks.Callback)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">on_epoch_end</span><span class="params">(self, epoch, logs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> epoch % <span class="number">100</span> == <span class="number">0</span>: print(<span class="string">''</span>)</span><br><span class="line">        print(<span class="string">'.'</span>, end=<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">EPOCHS = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">history = model.fit(</span><br><span class="line">  normed_train_data, train_labels,</span><br><span class="line">  epochs=EPOCHS, validation_split = <span class="number">0.2</span>, verbose=<span class="number">0</span>,</span><br><span class="line">  callbacks=[PrintDot()])</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>....................................................................................................
+....................................................................................................
+....................................................................................................
+....................................................................................................
+....................................................................................................
+....................................................................................................
+....................................................................................................
+....................................................................................................
+....................................................................................................
+....................................................................................................
+
+acc : 훈련 정확도
+loss : 훈련 손실값
+val_acc : 검증 정확도
+val_loss : 검증 손실값</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hist = pd.DataFrame(history.history)</span><br><span class="line">hist[<span class="string">'epoch'</span>] = history.epoch</span><br><span class="line">hist.tail()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>loss</th>
+      <th>mae</th>
+      <th>mse</th>
+      <th>accuracy</th>
+      <th>val_loss</th>
+      <th>val_mae</th>
+      <th>val_mse</th>
+      <th>val_accuracy</th>
+      <th>epoch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>995</th>
+      <td>0.102436</td>
+      <td>0.234032</td>
+      <td>0.102436</td>
+      <td>0.0</td>
+      <td>0.165683</td>
+      <td>0.324213</td>
+      <td>0.165683</td>
+      <td>0.0</td>
+      <td>995</td>
+    </tr>
+    <tr>
+      <th>996</th>
+      <td>0.124358</td>
+      <td>0.292103</td>
+      <td>0.124358</td>
+      <td>0.0</td>
+      <td>0.263786</td>
+      <td>0.404004</td>
+      <td>0.263786</td>
+      <td>0.0</td>
+      <td>996</td>
+    </tr>
+    <tr>
+      <th>997</th>
+      <td>0.130789</td>
+      <td>0.295300</td>
+      <td>0.130789</td>
+      <td>0.0</td>
+      <td>0.212862</td>
+      <td>0.362374</td>
+      <td>0.212862</td>
+      <td>0.0</td>
+      <td>997</td>
+    </tr>
+    <tr>
+      <th>998</th>
+      <td>0.116644</td>
+      <td>0.275093</td>
+      <td>0.116644</td>
+      <td>0.0</td>
+      <td>0.054454</td>
+      <td>0.196261</td>
+      <td>0.054454</td>
+      <td>0.0</td>
+      <td>998</td>
+    </tr>
+    <tr>
+      <th>999</th>
+      <td>0.106241</td>
+      <td>0.280440</td>
+      <td>0.106241</td>
+      <td>0.0</td>
+      <td>0.121306</td>
+      <td>0.281089</td>
+      <td>0.121306</td>
+      <td>0.0</td>
+      <td>999</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_history</span><span class="params">(history)</span>:</span></span><br><span class="line">       </span><br><span class="line">    hist = pd.DataFrame(history.history)</span><br><span class="line">    hist[<span class="string">'epoch'</span>] = history.epoch</span><br><span class="line"></span><br><span class="line">    plt.figure(figsize=(<span class="number">8</span>,<span class="number">8</span>))</span><br><span class="line">    </span><br><span class="line">    plt.subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    plt.plot(hist[<span class="string">'epoch'</span>], hist[<span class="string">'mae'</span>], label=<span class="string">'Train Error'</span>)</span><br><span class="line">    plt.xlabel(<span class="string">'Epoch'</span>)</span><br><span class="line">    plt.ylabel(<span class="string">'Mean Abs Error [MPG]'</span>)</span><br><span class="line">    plt.plot(hist[<span class="string">'epoch'</span>], hist[<span class="string">'val_mae'</span>],</span><br><span class="line">             label = <span class="string">'Val Error'</span>)</span><br><span class="line">    plt.ylim([<span class="number">0</span>,<span class="number">5</span>])</span><br><span class="line">    plt.legend()</span><br><span class="line">    </span><br><span class="line">    plt.subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">    plt.xlabel(<span class="string">'Epoch'</span>)</span><br><span class="line">    plt.ylabel(<span class="string">'Mean Square Error [$MPG^2$]'</span>)</span><br><span class="line">    plt.plot(hist[<span class="string">'epoch'</span>], hist[<span class="string">'mse'</span>],</span><br><span class="line">             label=<span class="string">'Train Error'</span>)</span><br><span class="line">    plt.plot(hist[<span class="string">'epoch'</span>], hist[<span class="string">'val_mse'</span>],</span><br><span class="line">             label = <span class="string">'Val Error'</span>)</span><br><span class="line">    plt.ylim([<span class="number">0</span>,<span class="number">20</span>])</span><br><span class="line">    plt.legend()</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">plot_history(history)</span><br></pre></td></tr></table></figure>
+
+
+<img width="512" alt="output_37_0" src="https://user-images.githubusercontent.com/59719711/90860211-94eee200-e3c4-11ea-8673-4330f5325b81.png">
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">model = build_model()</span><br><span class="line"></span><br><span class="line"><span class="comment"># patience 매개변수는 성능 향상을 체크할 에포크 횟수입니다</span></span><br><span class="line">early_stop = keras.callbacks.EarlyStopping(monitor=<span class="string">'val_loss'</span>, patience=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">history = model.fit(normed_train_data, train_labels, epochs=EPOCHS,</span><br><span class="line">                    validation_split = <span class="number">0.2</span>, verbose=<span class="number">0</span>, callbacks=[early_stop, PrintDot()])</span><br><span class="line"></span><br><span class="line">plot_history(history)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>......................................................................................</code></pre><img width="512" alt="output_38_1" src="https://user-images.githubusercontent.com/59719711/90860253-a33cfe00-e3c4-11ea-8a43-e8074c908d64.png">
+
+
+<h6 id="모델-검증"><a href="#모델-검증" class="headerlink" title="모델 검증"></a>모델 검증</h6><pre><code>테스트 세트의 모델 성능을 확인</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">loss, mae, mse = model.evaluate(normed_test_data, test_labels, verbose=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"테스트 세트의 평균 절대 오차: &#123;:5.2f&#125; MPG"</span>.format(mae))</span><br></pre></td></tr></table></figure>
+
+<pre><code>4/4 - 0s - loss: 0.4875 - mae: 0.5579 - mse: 0.4875
+테스트 세트의 평균 절대 오차:  0.56 MPG</code></pre><h6 id="예측"><a href="#예측" class="headerlink" title="예측"></a>예측</h6><pre><code>테스트 세트에 있는 샘플을 이용해 MPG 값 예측</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">test_predictions = model.predict(normed_test_data).flatten()</span><br><span class="line"></span><br><span class="line">plt.scatter(test_labels, test_predictions)</span><br><span class="line">plt.xlabel(<span class="string">'True Values [MPG]'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Predictions [MPG]'</span>)</span><br><span class="line">plt.axis(<span class="string">'equal'</span>)</span><br><span class="line">plt.axis(<span class="string">'square'</span>)</span><br><span class="line">plt.xlim([<span class="number">0</span>,plt.xlim()[<span class="number">1</span>]])</span><br><span class="line">plt.ylim([<span class="number">0</span>,plt.ylim()[<span class="number">1</span>]])</span><br><span class="line">_ = plt.plot([<span class="number">-100</span>, <span class="number">100</span>], [<span class="number">-100</span>, <span class="number">100</span>])</span><br></pre></td></tr></table></figure>
+
+
+<img width="260" alt="output_42_0" src="https://user-images.githubusercontent.com/59719711/90860297-b780fb00-e3c4-11ea-8c8a-709eb6725538.png">
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">error = test_predictions - test_labels</span><br><span class="line">plt.hist(error, bins = <span class="number">25</span>)</span><br><span class="line">plt.xlabel(<span class="string">"Prediction Error [MPG]"</span>)</span><br><span class="line">_ = plt.ylabel(<span class="string">"Count"</span>)</span><br></pre></td></tr></table></figure>
+
+
+<img width="386" alt="output_43_0" src="https://user-images.githubusercontent.com/59719711/90860330-c5368080-e3c4-11ea-9a6c-79c1fd8fd89c.png">
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button is-info donate"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="/" alt="Alipay"></span></a><a class="button donate" href="/" style="background-color:rgba(255,128,62,.87);border-color:transparent;color:white;" target="_blank" rel="noopener"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>Buy me a coffee</span></a><a class="button is-danger donate" href="/" target="_blank" rel="noopener"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="/" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/08/12/%E1%84%80%E1%85%AE%E1%84%80%E1%85%B3%E1%86%AF-%E1%84%8C%E1%85%B5%E1%84%8B%E1%85%A9%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC-API-%E1%84%8F%E1%85%B5-%E1%84%87%E1%85%A1%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%87%E1%85%A1%E1%86%AE%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8-How-to-be-issued-the-Geocoding-API-key-from-Google/"><span class="level-item">구글 지오코딩 API 키 발급 받는 방법 (How to be issued the Geocoding API key from Google)</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">Comments</h3><div class="notification is-danger">You forgot to set the <code>shortname</code> for Disqus. Please set it in <code>_config.yml</code>.</div></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://user-images.githubusercontent.com/59719711/85970198-ab9c3c80-ba04-11ea-8990-4bdec6914e3c.jpeg" alt="wglee87"></figure><p class="title is-size-4 is-block line-height-inherit">wglee87</p><p class="is-size-6 is-block">Data has a better idea</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Hwasung, KR</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">32</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">3</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/wglee87" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/wglee87"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Instagram" href="https://Instagram.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">Recent</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-21T06:29:24.000Z">2020-08-21</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/21/Tensorflow%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%ED%9A%8C%EA%B7%80-%EB%AA%A8%EB%8D%B8%EB%A7%81/">Tensorflow를 활용한 회귀 모델링</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-12T12:06:35.000Z">2020-08-12</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/12/%E1%84%80%E1%85%AE%E1%84%80%E1%85%B3%E1%86%AF-%E1%84%8C%E1%85%B5%E1%84%8B%E1%85%A9%E1%84%8F%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC-API-%E1%84%8F%E1%85%B5-%E1%84%87%E1%85%A1%E1%86%AF%E1%84%80%E1%85%B3%E1%86%B8-%E1%84%87%E1%85%A1%E1%86%AE%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%87%E1%85%A1%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8-How-to-be-issued-the-Geocoding-API-key-from-Google/">구글 지오코딩 API 키 발급 받는 방법 (How to be issued the Geocoding API key from Google)</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-24T05:54:01.000Z">2020-07-24</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/24/MySQL-Ubuntu%EC%97%90%EC%84%9C-MySQL-%EC%99%84%EC%A0%84-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0/">[MySQL] Ubuntu에서 MySQL 완전 삭제하기</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-23T10:24:00.000Z">2020-07-23</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/23/MySQL-workbench%E1%84%8B%E1%85%A6%E1%84%89%E1%85%A5-ERD%E1%84%90%E1%85%AE%E1%86%AF-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5-Database-Modeling/">[mysql] workbench에서 ERD툴 사용하기 (Database Modeling)</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-22T13:58:24.000Z">2020-07-22</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/22/MySQL-Storage-Engine-InnoDB-vs-MyISAM/">[MySQL] Storage Engine (InnoDB vs MyISAM)</a></p><p class="is-uppercase"></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/08/"><span class="level-start"><span class="level-item">August 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/07/"><span class="level-start"><span class="level-item">July 2020</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/06/"><span class="level-start"><span class="level-item">June 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/fastcampus/"><span class="tag">fastcampus</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe to Updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button is-primary" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/" alt="Geony&#039;s Tech Blog" height="28"></a><p class="size-small"><span>&copy; 2020 WGLee87</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'http://wglee87.github.io',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to Top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
